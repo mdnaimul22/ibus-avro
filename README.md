@@ -4,11 +4,11 @@
 
 # IBus Avro Keyboard (Linux)
 
-Linux-এর IBus-এর জন্য অভ্র ফনেটিক কি-বোর্ড লেআউট। এটি লিনাক্স ডিস্ট্রিবিউশনগুলোতে অত্যন্ত দ্রুত গতিতে এবং কোনো ঝামেলা ছাড়াই বাংলা লিখতে সাহায্য করে।
+Linux-এর IBus-এর জন্য অভ্র ফনেটিক কি-বোর্ড লেআউট। এটি লিনাক্স ডিস্ট্রিবিউশনগুলোতে অত্যন্ত দ্রুত গতিতে বাংলা লিখতে সাহায্য করে।
 
 ---
 
-## ⚡ কুইক ১-ক্লিক ইনস্টলেশন (Quick Installation)
+## কুইক ১-ক্লিক ইনস্টলেশন (Quick Installation)
 
 আপনার সিস্টেমে প্রয়োজনীয় প্যাকেজ ডাউনলোড, বিল্ড-ইনস্টল, কীবোর্ড শর্টকাট (F12 ও Super+Space) কনফিগার এবং IBus রিস্টার্ট করার জন্য নিচের কমান্ডটি টার্মিনালে রান করুন:
 
@@ -27,33 +27,6 @@ curl -sSL https://raw.githubusercontent.com/mdnaimul22/ibus-avro/setup.sh | bash
 
 ---
 
-## 📦 ম্যানুয়াল ইনস্টলেশন (Manual Installation)
-
-যদি আপনি ম্যানুয়ালি ইনস্টল করতে চান, তবে প্রথমে আপনার ডিস্ট্রিবিউশন অনুযায়ী প্রয়োজনীয় ডিপেন্ডেন্সিগুলো ইনস্টল করুন:
-
-### ১. ডিপেন্ডেন্সি ইনস্টলেশন (Ubuntu/Debian)
-```bash
-sudo apt update
-sudo apt install git libibus-1.0-dev automake autoconf make gjs ibus
-```
-
-### ২. ডিপেন্ডেন্সি ইনস্টলেশন (Fedora)
-```bash
-sudo dnf install git automake autoconf make gjs ibus ibus-devel
-```
-
-### ৩. বিল্ড এবং ইনস্টল
-টার্মিনালে এই কমান্ডগুলো একে একে রান করুন:
-```bash
-git clone https://github.com/mdnaimul22/ibus-avro.git
-cd ibus-avro
-aclocal && autoconf && automake --add-missing
-./configure --prefix=/usr
-sudo make install
-```
-
----
-
 ## ⌨️ ব্যবহার বিধি (Usage)
 
 1. কীবোর্ড লেআউট পরিবর্তন করতে **`F12`** অথবা **`Super + Space`** প্রেস করুন।
@@ -61,22 +34,6 @@ sudo make install
 3. IBus রিস্টার্ট করতে চাইলে টার্মিনালে লিখুন: `ibus restart`।
 
 ---
-
-## English Documentation
-
-### Features & Optimization
-This version is heavily optimized for zero typing latency:
-* Core parser now uses an **$O(1)$ prefix map lookup**, giving a **11.5x parser speedup** compared to the original linear scanner.
-* Suggestion builder uses standard loops and **Schwartzian Transform** for Levenshtein sorting to guarantee maximum optimization in the Gnome GJS (SpiderMonkey) runtime.
-
-### Manual Installation
-1. Install development tools: `git libibus-1.0-dev automake autoconf make gjs ibus` (on Debian/Ubuntu) or `ibus-devel` (on Fedora).
-2. Run configuration and make:
-   ```bash
-   aclocal && autoconf && automake --add-missing
-   ./configure --prefix=/usr
-   sudo make install
-   ```
 
 ### License
 *Licensed under the Mozilla Public License 2.0 ("MPL").*
