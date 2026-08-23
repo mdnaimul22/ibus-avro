@@ -121,19 +121,33 @@ SuggestionBuilder.prototype = {
     },
     
     
-    _sortByPhoneticRelevance: function (phonetic, dictSuggestion){
+    _sortByPhoneticRelevance: function (phonetic, dictSuggestion, searchKey){
+        var freqMap = {};
+        // Build a frequency map for words the user has previously chosen for this key
+        if (searchKey && this._candidateSelections[searchKey]) {
+            var entry = this._candidateSelections[searchKey];
+            // Support both legacy string format and new metadata object format
+            if (typeof entry === 'string') {
+                freqMap[entry] = 1;
+            } else if (typeof entry === 'object' && entry !== null) {
+                for (var bw in entry) {
+                    freqMap[bw] = entry[bw].freq || 1;
+                }
+            }
+        }
+
         var list = [];
         var len = dictSuggestion.length;
         for (var i = 0; i < len; ++i) {
             var item = dictSuggestion[i];
-            list.push({
-                item: item,
-                dist: EditDistance.levenshtein(phonetic, item)
-            });
+            var freq = freqMap[item] || 0;
+            // Subtract a boost so frequently chosen words sort lower (i.e. first)
+            var score = EditDistance.levenshtein(phonetic, item) - (freq > 0 ? (10 + freq) : 0);
+            list.push({ item: item, score: score });
         }
         
         list.sort(function(a, b){
-            return a.dist - b.dist;
+            return a.score - b.score;
         });
         
         var sortedSuggestion = [];
@@ -283,7 +297,7 @@ SuggestionBuilder.prototype = {
                 //Add Suffix
                 var dictSuggestionWithSuffix = this._addSuffix(splitWord);
 
-                var sortedWords = this._sortByPhoneticRelevance(phonetic, dictSuggestionWithSuffix);
+                var sortedWords = this._sortByPhoneticRelevance(phonetic, dictSuggestionWithSuffix, splitWord['middle'].toLowerCase());
                 for (var i = 0; i < sortedWords.length; i++){
                     this._addToArray(words, sortedWords[i]);
                 }
@@ -315,14 +329,34 @@ SuggestionBuilder.prototype = {
     },
     
     
+    // Returns the last-selected word string for a given key, supporting both
+    // legacy string values and new metadata object format.
+    _getPreviousSelectionString: function(key){
+        var entry = this._candidateSelections[key];
+        if (!entry) return '';
+        if (typeof entry === 'string') return entry;
+        // New format: { 'word': { freq: N, lastSelected: T }, ... }
+        // Return the word with the highest frequency
+        var bestWord = '';
+        var bestFreq = -1;
+        for (var bw in entry) {
+            if (entry[bw].freq > bestFreq) {
+                bestFreq = entry[bw].freq;
+                bestWord = bw;
+            }
+        }
+        return bestWord;
+    },
+
+
     _getPreviousSelection: function (splitWord, suggestionWords){
         var word = splitWord['middle'];
         var len = word.length;
         var selectedWord = '';
         
-        if (this._candidateSelections[word]){
-            selectedWord = this._candidateSelections[word];
-        } else {
+        selectedWord = this._getPreviousSelectionString(word);
+
+        if (!selectedWord) {
             //Full word was not found, try checking without suffix
             if (len >= 2){
                 for (var j = 1; j < len; j++){
@@ -332,30 +366,29 @@ SuggestionBuilder.prototype = {
                     if (suffix){
                         var key = word.substr(0, word.length - testSuffix.length);
 
-                        if (this._candidateSelections[key]){
+                        var keyWord = this._getPreviousSelectionString(key);
 
-                            //Get possible words for key
-                            var keyWord = this._candidateSelections[key];
-
+                        if (keyWord) {
                             var kwRightChar = keyWord.substr(-1);
                             var suffixLeftChar = suffix.substr(0, 1);
 
-                            var selectedWord = '';
+                            var derivedWord = '';
 
                             if (this._isVowel(kwRightChar) && this._isKar(suffixLeftChar)){
-                                 selectedWord = keyWord + "\u09df" + suffix; // \u09df = B_Y
+                                 derivedWord = keyWord + "\u09df" + suffix; // \u09df = B_Y
                              } else {
                                  if (kwRightChar == "\u09ce"){ // \u09ce = b_Khandatta
-                                     selectedWord = keyWord.substr(0, keyWord.length - 1) + "\u09a4" + suffix; // \u09a4 = b_T
+                                     derivedWord = keyWord.substr(0, keyWord.length - 1) + "\u09a4" + suffix; // \u09a4 = b_T
                                  } else if (kwRightChar == "\u0982"){ // \u0982 = b_Anushar
-                                     selectedWord = keyWord.substr(0, keyWord.length - 1) + "\u0999" + suffix; // \u09a4 = b_NGA
+                                     derivedWord = keyWord.substr(0, keyWord.length - 1) + "\u0999" + suffix; // \u09a4 = b_NGA
                                  } else {
-                                     selectedWord = keyWord + suffix;
+                                     derivedWord = keyWord + suffix;
                                  }
                              }
                              
-                             //Save this referrence
-                            this._updateCandidateSelection(word, selectedWord);
+                             //Save this reference
+                            this._recordSelection(word, derivedWord, false);
+                            selectedWord = derivedWord;
                             break;
                         }
                     }
@@ -441,8 +474,37 @@ SuggestionBuilder.prototype = {
     },
 
 
+    // Central helper to record a word selection in memory.
+    // incrementFreq=true: user committed the word (Space/Enter/Click).
+    // incrementFreq=false: user is navigating suggestions (preview only).
+    _recordSelection: function(eng, candidate, incrementFreq){
+        if (!eng || !candidate) return;
+        var entry = this._candidateSelections[eng];
+
+        // Migrate legacy string format to metadata object on first write
+        if (typeof entry === 'string') {
+            var legacyWord = entry;
+            this._candidateSelections[eng] = {};
+            this._candidateSelections[eng][legacyWord] = { freq: 1, lastSelected: Date.now() };
+            entry = this._candidateSelections[eng];
+        } else if (typeof entry !== 'object' || entry === null) {
+            this._candidateSelections[eng] = {};
+            entry = this._candidateSelections[eng];
+        }
+
+        if (!entry[candidate]) {
+            entry[candidate] = { freq: 0, lastSelected: 0 };
+        }
+
+        if (incrementFreq) {
+            entry[candidate].freq += 1;
+        }
+        entry[candidate].lastSelected = Date.now();
+    },
+
+
     _updateCandidateSelection: function(word, candidate){
-        this._candidateSelections[word] = candidate;
+        this._recordSelection(word, candidate, false);
     },
     
     
@@ -468,17 +530,15 @@ SuggestionBuilder.prototype = {
             return;
         }
         
-        //If it is called, user made the final decision here
-        
-        //Check and save selection without suffix if that is not present
+        // User made the final commit. Increment frequency for this word.
+        var splitWord = this._separatePadding(word);
+        this._recordSelection(splitWord['middle'], candidate, true);
+
+        // Also record without suffix if suffix data is available in tempCache
         if (this._tempCache[candidate]){
             var base = this._tempCache[candidate].base;
             var eng = this._tempCache[candidate].eng;
-            //Don't overwrite existing value
-            if (!this._candidateSelections[eng]){
-                this._candidateSelections[eng] = base;
-                this._saveCandidateSelectionsToFile();
-            }
+            this._recordSelection(eng, base, true);
         }
         
         this._saveCandidateSelectionsToFile();
