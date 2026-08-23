@@ -17,6 +17,11 @@
     </filter>
     <clipPath id="bounds"><rect width="900" height="300"/></clipPath>
     <clipPath id="matrixclip"><rect width="900" height="300"/></clipPath>
+    <clipPath id="revealClip">
+      <rect x="250" y="195" width="0" height="50">
+        <animate attributeName="width" values="0;400;400" keyTimes="0;0.5;1" dur="6s" repeatCount="indefinite"/>
+      </rect>
+    </clipPath>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@700&amp;family=Outfit:wght@700&amp;display=swap");
       @keyframes glitch {
@@ -37,704 +42,704 @@
   <rect width="900" height="300" fill="url(#scanlines)"/>
   <!-- ===== MATRIX RAIN OF BANGLA CHARACTERS ===== -->
   <g clip-path="url(#matrixclip)" font-family="'Courier New', monospace" font-size="17" fill="#ff7f50">
-    <g opacity="0.17">
+    <g opacity="0.31">
       <text x="5" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="3.76s" repeatCount="indefinite" begin="1.19s"/>
-        ই
+        <animate attributeName="y" values="-80;380" dur="4.38s" repeatCount="indefinite" begin="2.44s"/>
+        ঈ
       </text>
       <text x="5" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="3.76s" repeatCount="indefinite" begin="1.19s"/>
-        র
+        <animate attributeName="y" values="-80;380" dur="4.38s" repeatCount="indefinite" begin="2.44s"/>
+        দ
       </text>
       <text x="5" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="3.76s" repeatCount="indefinite" begin="1.19s"/>
+        <animate attributeName="y" values="-80;380" dur="4.38s" repeatCount="indefinite" begin="2.44s"/>
+        থ
+      </text>
+    </g>
+    <g opacity="0.58">
+      <text x="23" y="0" opacity="1.0">
+        <animate attributeName="y" values="-80;380" dur="3.04s" repeatCount="indefinite" begin="2.29s"/>
+        প
+      </text>
+      <text x="23" y="0" opacity="0.65">
+        <animate attributeName="y" values="-80;380" dur="3.04s" repeatCount="indefinite" begin="2.29s"/>
+        ঘ
+      </text>
+      <text x="23" y="0" opacity="0.3">
+        <animate attributeName="y" values="-80;380" dur="3.04s" repeatCount="indefinite" begin="2.29s"/>
+        ঋ
+      </text>
+    </g>
+    <g opacity="0.27">
+      <text x="41" y="0" opacity="1.0">
+        <animate attributeName="y" values="-80;380" dur="4.11s" repeatCount="indefinite" begin="1.38s"/>
+        ট
+      </text>
+      <text x="41" y="0" opacity="0.65">
+        <animate attributeName="y" values="-80;380" dur="4.11s" repeatCount="indefinite" begin="1.38s"/>
+        য়
+      </text>
+      <text x="41" y="0" opacity="0.3">
+        <animate attributeName="y" values="-80;380" dur="4.11s" repeatCount="indefinite" begin="1.38s"/>
+        ট
+      </text>
+    </g>
+    <g opacity="0.18">
+      <text x="59" y="0" opacity="1.0">
+        <animate attributeName="y" values="-80;380" dur="3.42s" repeatCount="indefinite" begin="1.33s"/>
+        ঁ
+      </text>
+      <text x="59" y="0" opacity="0.65">
+        <animate attributeName="y" values="-80;380" dur="3.42s" repeatCount="indefinite" begin="1.33s"/>
+        ম
+      </text>
+      <text x="59" y="0" opacity="0.3">
+        <animate attributeName="y" values="-80;380" dur="3.42s" repeatCount="indefinite" begin="1.33s"/>
+        ধ
+      </text>
+    </g>
+    <g opacity="0.54">
+      <text x="77" y="0" opacity="1.0">
+        <animate attributeName="y" values="-80;380" dur="3.65s" repeatCount="indefinite" begin="1.72s"/>
+        ল
+      </text>
+      <text x="77" y="0" opacity="0.65">
+        <animate attributeName="y" values="-80;380" dur="3.65s" repeatCount="indefinite" begin="1.72s"/>
+        ঢ়
+      </text>
+      <text x="77" y="0" opacity="0.3">
+        <animate attributeName="y" values="-80;380" dur="3.65s" repeatCount="indefinite" begin="1.72s"/>
         ঐ
       </text>
     </g>
-    <g opacity="0.6">
-      <text x="23" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="4.0s" repeatCount="indefinite" begin="0.08s"/>
-        ঔ
-      </text>
-      <text x="23" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="4.0s" repeatCount="indefinite" begin="0.08s"/>
-        ঃ
-      </text>
-      <text x="23" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="4.0s" repeatCount="indefinite" begin="0.08s"/>
-        গ
-      </text>
-    </g>
-    <g opacity="0.21">
-      <text x="41" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="3.78s" repeatCount="indefinite" begin="1.84s"/>
-        ড
-      </text>
-      <text x="41" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="3.78s" repeatCount="indefinite" begin="1.84s"/>
-        ভ
-      </text>
-      <text x="41" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="3.78s" repeatCount="indefinite" begin="1.84s"/>
-        ড
-      </text>
-    </g>
-    <g opacity="0.35">
-      <text x="59" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="3.68s" repeatCount="indefinite" begin="0.26s"/>
-        ঔ
-      </text>
-      <text x="59" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="3.68s" repeatCount="indefinite" begin="0.26s"/>
-        অ
-      </text>
-      <text x="59" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="3.68s" repeatCount="indefinite" begin="0.26s"/>
-        ন
-      </text>
-    </g>
-    <g opacity="0.57">
-      <text x="77" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="4.32s" repeatCount="indefinite" begin="0.52s"/>
-        ক
-      </text>
-      <text x="77" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="4.32s" repeatCount="indefinite" begin="0.52s"/>
+    <g opacity="0.37">
+      <text x="95" y="0" opacity="1.0">
+        <animate attributeName="y" values="-80;380" dur="2.5s" repeatCount="indefinite" begin="0.91s"/>
         আ
       </text>
-      <text x="77" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="4.32s" repeatCount="indefinite" begin="0.52s"/>
-        থ
-      </text>
-    </g>
-    <g opacity="0.19">
-      <text x="95" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="3.78s" repeatCount="indefinite" begin="1.2s"/>
-        থ
-      </text>
       <text x="95" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="3.78s" repeatCount="indefinite" begin="1.2s"/>
-        ঁ
-      </text>
-      <text x="95" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="3.78s" repeatCount="indefinite" begin="1.2s"/>
+        <animate attributeName="y" values="-80;380" dur="2.5s" repeatCount="indefinite" begin="0.91s"/>
         ঝ
       </text>
+      <text x="95" y="0" opacity="0.3">
+        <animate attributeName="y" values="-80;380" dur="2.5s" repeatCount="indefinite" begin="0.91s"/>
+        য
+      </text>
     </g>
-    <g opacity="0.17">
+    <g opacity="0.18">
       <text x="113" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="3.22s" repeatCount="indefinite" begin="2.04s"/>
-        দ
+        <animate attributeName="y" values="-80;380" dur="3.51s" repeatCount="indefinite" begin="0.26s"/>
+        অ
       </text>
       <text x="113" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="3.22s" repeatCount="indefinite" begin="2.04s"/>
-        র
+        <animate attributeName="y" values="-80;380" dur="3.51s" repeatCount="indefinite" begin="0.26s"/>
+        ঃ
       </text>
       <text x="113" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="3.22s" repeatCount="indefinite" begin="2.04s"/>
-        ত
-      </text>
-    </g>
-    <g opacity="0.2">
-      <text x="131" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="3.97s" repeatCount="indefinite" begin="1.34s"/>
-        র
-      </text>
-      <text x="131" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="3.97s" repeatCount="indefinite" begin="1.34s"/>
-        ও
-      </text>
-      <text x="131" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="3.97s" repeatCount="indefinite" begin="1.34s"/>
-        দ
-      </text>
-    </g>
-    <g opacity="0.3">
-      <text x="149" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="3.37s" repeatCount="indefinite" begin="0.9s"/>
-        প
-      </text>
-      <text x="149" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="3.37s" repeatCount="indefinite" begin="0.9s"/>
-        হ
-      </text>
-      <text x="149" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="3.37s" repeatCount="indefinite" begin="0.9s"/>
-        স
-      </text>
-    </g>
-    <g opacity="0.42">
-      <text x="167" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="4.1s" repeatCount="indefinite" begin="1.18s"/>
-        র
-      </text>
-      <text x="167" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="4.1s" repeatCount="indefinite" begin="1.18s"/>
-        ত
-      </text>
-      <text x="167" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="4.1s" repeatCount="indefinite" begin="1.18s"/>
-        ড়
+        <animate attributeName="y" values="-80;380" dur="3.51s" repeatCount="indefinite" begin="0.26s"/>
+        ঔ
       </text>
     </g>
     <g opacity="0.33">
+      <text x="131" y="0" opacity="1.0">
+        <animate attributeName="y" values="-80;380" dur="4.12s" repeatCount="indefinite" begin="1.23s"/>
+        ঁ
+      </text>
+      <text x="131" y="0" opacity="0.65">
+        <animate attributeName="y" values="-80;380" dur="4.12s" repeatCount="indefinite" begin="1.23s"/>
+        ঊ
+      </text>
+      <text x="131" y="0" opacity="0.3">
+        <animate attributeName="y" values="-80;380" dur="4.12s" repeatCount="indefinite" begin="1.23s"/>
+        خ
+      </text>
+    </g>
+    <g opacity="0.41">
+      <text x="149" y="0" opacity="1.0">
+        <animate attributeName="y" values="-80;380" dur="4.21s" repeatCount="indefinite" begin="0.92s"/>
+        ফ
+      </text>
+      <text x="149" y="0" opacity="0.65">
+        <animate attributeName="y" values="-80;380" dur="4.21s" repeatCount="indefinite" begin="0.92s"/>
+        উ
+      </text>
+      <text x="149" y="0" opacity="0.3">
+        <animate attributeName="y" values="-80;380" dur="4.21s" repeatCount="indefinite" begin="0.92s"/>
+        ভ
+      </text>
+    </g>
+    <g opacity="0.29">
+      <text x="167" y="0" opacity="1.0">
+        <animate attributeName="y" values="-80;380" dur="4.32s" repeatCount="indefinite" begin="0.62s"/>
+        ও
+      </text>
+      <text x="167" y="0" opacity="0.65">
+        <animate attributeName="y" values="-80;380" dur="4.32s" repeatCount="indefinite" begin="0.62s"/>
+        ষ
+      </text>
+      <text x="167" y="0" opacity="0.3">
+        <animate attributeName="y" values="-80;380" dur="4.32s" repeatCount="indefinite" begin="0.62s"/>
+        গ
+      </text>
+    </g>
+    <g opacity="0.52">
       <text x="185" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="3.36s" repeatCount="indefinite" begin="2.89s"/>
-        ৎ
+        <animate attributeName="y" values="-80;380" dur="3.01s" repeatCount="indefinite" begin="0.59s"/>
+        ঔ
       </text>
       <text x="185" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="3.36s" repeatCount="indefinite" begin="2.89s"/>
-        ঃ
+        <animate attributeName="y" values="-80;380" dur="3.01s" repeatCount="indefinite" begin="0.59s"/>
+        ঠ
       </text>
       <text x="185" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="3.36s" repeatCount="indefinite" begin="2.89s"/>
-        ও
+        <animate attributeName="y" values="-80;380" dur="3.01s" repeatCount="indefinite" begin="0.59s"/>
+        ল
       </text>
     </g>
     <g opacity="0.47">
       <text x="203" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="4.43s" repeatCount="indefinite" begin="2.53s"/>
-        ক
-      </text>
-      <text x="203" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="4.43s" repeatCount="indefinite" begin="2.53s"/>
+        <animate attributeName="y" values="-80;380" dur="3.09s" repeatCount="indefinite" begin="1.15s"/>
         ঙ
       </text>
+      <text x="203" y="0" opacity="0.65">
+        <animate attributeName="y" values="-80;380" dur="3.09s" repeatCount="indefinite" begin="1.15s"/>
+        ষ
+      </text>
       <text x="203" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="4.43s" repeatCount="indefinite" begin="2.53s"/>
-        ল
+        <animate attributeName="y" values="-80;380" dur="3.09s" repeatCount="indefinite" begin="1.15s"/>
+        ঁ
       </text>
     </g>
-    <g opacity="0.32">
+    <g opacity="0.43">
       <text x="221" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="2.61s" repeatCount="indefinite" begin="1.3s"/>
-        ঝ
+        <animate attributeName="y" values="-80;380" dur="3.41s" repeatCount="indefinite" begin="0.37s"/>
+        ভ
       </text>
       <text x="221" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="2.61s" repeatCount="indefinite" begin="1.3s"/>
-        ৎ
+        <animate attributeName="y" values="-80;380" dur="3.41s" repeatCount="indefinite" begin="0.37s"/>
+        ঊ
       </text>
       <text x="221" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="2.61s" repeatCount="indefinite" begin="1.3s"/>
-        ঢ
+        <animate attributeName="y" values="-80;380" dur="3.41s" repeatCount="indefinite" begin="0.37s"/>
+        চ
       </text>
     </g>
-    <g opacity="0.58">
+    <g opacity="0.43">
       <text x="239" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="3.27s" repeatCount="indefinite" begin="1.99s"/>
-        শ
+        <animate attributeName="y" values="-80;380" dur="4.06s" repeatCount="indefinite" begin="1.36s"/>
+        ম
       </text>
       <text x="239" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="3.27s" repeatCount="indefinite" begin="1.99s"/>
-        ঝ
+        <animate attributeName="y" values="-80;380" dur="4.06s" repeatCount="indefinite" begin="1.36s"/>
+        ফ
       </text>
       <text x="239" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="3.27s" repeatCount="indefinite" begin="1.99s"/>
-        অ
+        <animate attributeName="y" values="-80;380" dur="4.06s" repeatCount="indefinite" begin="1.36s"/>
+        ট
       </text>
     </g>
-    <g opacity="0.39">
+    <g opacity="0.23">
       <text x="257" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="3.6s" repeatCount="indefinite" begin="2.05s"/>
-        ল
+        <animate attributeName="y" values="-80;380" dur="4.43s" repeatCount="indefinite" begin="1.34s"/>
+        ত
       </text>
       <text x="257" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="3.6s" repeatCount="indefinite" begin="2.05s"/>
-        য়
+        <animate attributeName="y" values="-80;380" dur="4.43s" repeatCount="indefinite" begin="1.34s"/>
+        ফ
       </text>
       <text x="257" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="3.6s" repeatCount="indefinite" begin="2.05s"/>
-        ঋ
+        <animate attributeName="y" values="-80;380" dur="4.43s" repeatCount="indefinite" begin="1.34s"/>
+        ভ
       </text>
     </g>
     <g opacity="0.21">
       <text x="275" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="2.97s" repeatCount="indefinite" begin="1.43s"/>
-        ঞ
+        <animate attributeName="y" values="-80;380" dur="4.08s" repeatCount="indefinite" begin="1.85s"/>
+        শ
       </text>
       <text x="275" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="2.97s" repeatCount="indefinite" begin="1.43s"/>
-        ব
+        <animate attributeName="y" values="-80;380" dur="4.08s" repeatCount="indefinite" begin="1.85s"/>
+        ঢ়
       </text>
       <text x="275" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="2.97s" repeatCount="indefinite" begin="1.43s"/>
-        ও
+        <animate attributeName="y" values="-80;380" dur="4.08s" repeatCount="indefinite" begin="1.85s"/>
+        গ
       </text>
     </g>
     <g opacity="0.22">
       <text x="293" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="4.38s" repeatCount="indefinite" begin="0.29s"/>
-        ঠ
+        <animate attributeName="y" values="-80;380" dur="2.96s" repeatCount="indefinite" begin="0.33s"/>
+        আ
       </text>
       <text x="293" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="4.38s" repeatCount="indefinite" begin="0.29s"/>
-        ছ
+        <animate attributeName="y" values="-80;380" dur="2.96s" repeatCount="indefinite" begin="0.33s"/>
+        ঙ
       </text>
       <text x="293" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="4.38s" repeatCount="indefinite" begin="0.29s"/>
-        ঈ
+        <animate attributeName="y" values="-80;380" dur="2.96s" repeatCount="indefinite" begin="0.33s"/>
+        ফ
       </text>
     </g>
-    <g opacity="0.17">
+    <g opacity="0.19">
       <text x="311" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="3.54s" repeatCount="indefinite" begin="0.3s"/>
-        ই
+        <animate attributeName="y" values="-80;380" dur="2.54s" repeatCount="indefinite" begin="2.43s"/>
+        ব
       </text>
       <text x="311" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="3.54s" repeatCount="indefinite" begin="0.3s"/>
-        ঈ
+        <animate attributeName="y" values="-80;380" dur="2.54s" repeatCount="indefinite" begin="2.43s"/>
+        ঘ
       </text>
       <text x="311" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="3.54s" repeatCount="indefinite" begin="0.3s"/>
+        <animate attributeName="y" values="-80;380" dur="2.54s" repeatCount="indefinite" begin="2.43s"/>
+        ল
+      </text>
+    </g>
+    <g opacity="0.18">
+      <text x="329" y="0" opacity="1.0">
+        <animate attributeName="y" values="-80;380" dur="2.76s" repeatCount="indefinite" begin="1.4s"/>
+        ধ
+      </text>
+      <text x="329" y="0" opacity="0.65">
+        <animate attributeName="y" values="-80;380" dur="2.76s" repeatCount="indefinite" begin="1.4s"/>
+        ঙ
+      </text>
+      <text x="329" y="0" opacity="0.3">
+        <animate attributeName="y" values="-80;380" dur="2.76s" repeatCount="indefinite" begin="1.4s"/>
+        গ
+      </text>
+    </g>
+    <g opacity="0.15">
+      <text x="347" y="0" opacity="1.0">
+        <animate attributeName="y" values="-80;380" dur="3.74s" repeatCount="indefinite" begin="1.85s"/>
+        দ
+      </text>
+      <text x="347" y="0" opacity="0.65">
+        <animate attributeName="y" values="-80;380" dur="3.74s" repeatCount="indefinite" begin="1.85s"/>
+        ত
+      </text>
+      <text x="347" y="0" opacity="0.3">
+        <animate attributeName="y" values="-80;380" dur="3.74s" repeatCount="indefinite" begin="1.85s"/>
+        দ
+      </text>
+    </g>
+    <g opacity="0.2">
+      <text x="365" y="0" opacity="1.0">
+        <animate attributeName="y" values="-80;380" dur="4.41s" repeatCount="indefinite" begin="1.87s"/>
+        স
+      </text>
+      <text x="365" y="0" opacity="0.65">
+        <animate attributeName="y" values="-80;380" dur="4.41s" repeatCount="indefinite" begin="1.87s"/>
+        ঐ
+      </text>
+      <text x="365" y="0" opacity="0.3">
+        <animate attributeName="y" values="-80;380" dur="4.41s" repeatCount="indefinite" begin="1.87s"/>
+        হ
+      </text>
+    </g>
+    <g opacity="0.2">
+      <text x="383" y="0" opacity="1.0">
+        <animate attributeName="y" values="-80;380" dur="3.64s" repeatCount="indefinite" begin="0.58s"/>
+        য
+      </text>
+      <text x="383" y="0" opacity="0.65">
+        <animate attributeName="y" values="-80;380" dur="3.64s" repeatCount="indefinite" begin="0.58s"/>
+        ই
+      </text>
+      <text x="383" y="0" opacity="0.3">
+        <animate attributeName="y" values="-80;380" dur="3.64s" repeatCount="indefinite" begin="0.58s"/>
+        ন
+      </text>
+    </g>
+    <g opacity="0.2">
+      <text x="401" y="0" opacity="1.0">
+        <animate attributeName="y" values="-80;380" dur="4.01s" repeatCount="indefinite" begin="1.45s"/>
+        থ
+      </text>
+      <text x="401" y="0" opacity="0.65">
+        <animate attributeName="y" values="-80;380" dur="4.01s" repeatCount="indefinite" begin="1.45s"/>
+        ই
+      </text>
+      <text x="401" y="0" opacity="0.3">
+        <animate attributeName="y" values="-80;380" dur="4.01s" repeatCount="indefinite" begin="1.45s"/>
         ঠ
       </text>
     </g>
     <g opacity="0.17">
-      <text x="329" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="2.62s" repeatCount="indefinite" begin="1.54s"/>
-        ঢ
-      </text>
-      <text x="329" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="2.62s" repeatCount="indefinite" begin="1.54s"/>
-        ঁ
-      </text>
-      <text x="329" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="2.62s" repeatCount="indefinite" begin="1.54s"/>
-        ঔ
-      </text>
-    </g>
-    <g opacity="0.19">
-      <text x="347" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="3.57s" repeatCount="indefinite" begin="1.86s"/>
-        ভ
-      </text>
-      <text x="347" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="3.57s" repeatCount="indefinite" begin="1.86s"/>
-        ঁ
-      </text>
-      <text x="347" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="3.57s" repeatCount="indefinite" begin="1.86s"/>
-        ৎ
-      </text>
-    </g>
-    <g opacity="0.17">
-      <text x="365" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="3.41s" repeatCount="indefinite" begin="2.39s"/>
-        ফ
-      </text>
-      <text x="365" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="3.41s" repeatCount="indefinite" begin="2.39s"/>
-        ষ
-      </text>
-      <text x="365" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="3.41s" repeatCount="indefinite" begin="2.39s"/>
-        স
-      </text>
-    </g>
-    <g opacity="0.16">
-      <text x="383" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="4.17s" repeatCount="indefinite" begin="1.49s"/>
-        ড
-      </text>
-      <text x="383" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="4.17s" repeatCount="indefinite" begin="1.49s"/>
-        ফ
-      </text>
-      <text x="383" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="4.17s" repeatCount="indefinite" begin="1.49s"/>
-        ক
-      </text>
-    </g>
-    <g opacity="0.18">
-      <text x="401" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="2.96s" repeatCount="indefinite" begin="2.67s"/>
-        র
-      </text>
-      <text x="401" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="2.96s" repeatCount="indefinite" begin="2.67s"/>
-        ট
-      </text>
-      <text x="401" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="2.96s" repeatCount="indefinite" begin="2.67s"/>
-        ঙ
-      </text>
-    </g>
-    <g opacity="0.19">
       <text x="419" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="2.72s" repeatCount="indefinite" begin="1.32s"/>
-        ঈ
+        <animate attributeName="y" values="-80;380" dur="3.23s" repeatCount="indefinite" begin="2.07s"/>
+        خ
       </text>
       <text x="419" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="2.72s" repeatCount="indefinite" begin="1.32s"/>
-        ঢ়
-      </text>
-      <text x="419" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="2.72s" repeatCount="indefinite" begin="1.32s"/>
+        <animate attributeName="y" values="-80;380" dur="3.23s" repeatCount="indefinite" begin="2.07s"/>
         ষ
       </text>
-    </g>
-    <g opacity="0.18">
-      <text x="437" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="4.49s" repeatCount="indefinite" begin="0.05s"/>
-        ঁ
-      </text>
-      <text x="437" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="4.49s" repeatCount="indefinite" begin="0.05s"/>
-        স
-      </text>
-      <text x="437" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="4.49s" repeatCount="indefinite" begin="0.05s"/>
-        ম
-      </text>
-    </g>
-    <g opacity="0.21">
-      <text x="455" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="3.8s" repeatCount="indefinite" begin="2.02s"/>
-        শ
-      </text>
-      <text x="455" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="3.8s" repeatCount="indefinite" begin="2.02s"/>
-        ফ
-      </text>
-      <text x="455" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="3.8s" repeatCount="indefinite" begin="2.02s"/>
+      <text x="419" y="0" opacity="0.3">
+        <animate attributeName="y" values="-80;380" dur="3.23s" repeatCount="indefinite" begin="2.07s"/>
         ঃ
       </text>
     </g>
     <g opacity="0.17">
-      <text x="473" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="3.41s" repeatCount="indefinite" begin="0.33s"/>
-        ঢ়
+      <text x="437" y="0" opacity="1.0">
+        <animate attributeName="y" values="-80;380" dur="2.69s" repeatCount="indefinite" begin="0.44s"/>
+        ই
       </text>
-      <text x="473" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="3.41s" repeatCount="indefinite" begin="0.33s"/>
-        ছ
+      <text x="437" y="0" opacity="0.65">
+        <animate attributeName="y" values="-80;380" dur="2.69s" repeatCount="indefinite" begin="0.44s"/>
+        ন
       </text>
-      <text x="473" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="3.41s" repeatCount="indefinite" begin="0.33s"/>
-        ল
+      <text x="437" y="0" opacity="0.3">
+        <animate attributeName="y" values="-80;380" dur="2.69s" repeatCount="indefinite" begin="0.44s"/>
+        ব
       </text>
     </g>
-    <g opacity="0.17">
+    <g opacity="0.22">
+      <text x="455" y="0" opacity="1.0">
+        <animate attributeName="y" values="-80;380" dur="3.0s" repeatCount="indefinite" begin="1.18s"/>
+        ও
+      </text>
+      <text x="455" y="0" opacity="0.65">
+        <animate attributeName="y" values="-80;380" dur="3.0s" repeatCount="indefinite" begin="1.18s"/>
+        ঔ
+      </text>
+      <text x="455" y="0" opacity="0.3">
+        <animate attributeName="y" values="-80;380" dur="3.0s" repeatCount="indefinite" begin="1.18s"/>
+        ঋ
+      </text>
+    </g>
+    <g opacity="0.16">
+      <text x="473" y="0" opacity="1.0">
+        <animate attributeName="y" values="-80;380" dur="3.91s" repeatCount="indefinite" begin="0.78s"/>
+        ঃ
+      </text>
+      <text x="473" y="0" opacity="0.65">
+        <animate attributeName="y" values="-80;380" dur="3.91s" repeatCount="indefinite" begin="0.78s"/>
+        হ
+      </text>
+      <text x="473" y="0" opacity="0.3">
+        <animate attributeName="y" values="-80;380" dur="3.91s" repeatCount="indefinite" begin="0.78s"/>
+        ঙ
+      </text>
+    </g>
+    <g opacity="0.21">
       <text x="491" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="2.95s" repeatCount="indefinite" begin="1.69s"/>
-        জ
+        <animate attributeName="y" values="-80;380" dur="4.35s" repeatCount="indefinite" begin="1.22s"/>
+        ছ
       </text>
       <text x="491" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="2.95s" repeatCount="indefinite" begin="1.69s"/>
-        চ
+        <animate attributeName="y" values="-80;380" dur="4.35s" repeatCount="indefinite" begin="1.22s"/>
+        ন
       </text>
       <text x="491" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="2.95s" repeatCount="indefinite" begin="1.69s"/>
-        ল
+        <animate attributeName="y" values="-80;380" dur="4.35s" repeatCount="indefinite" begin="1.22s"/>
+        ব
       </text>
     </g>
     <g opacity="0.18">
       <text x="509" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="3.84s" repeatCount="indefinite" begin="2.23s"/>
-        ঘ
+        <animate attributeName="y" values="-80;380" dur="3.62s" repeatCount="indefinite" begin="1.42s"/>
+        ই
       </text>
       <text x="509" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="3.84s" repeatCount="indefinite" begin="2.23s"/>
-        ত
+        <animate attributeName="y" values="-80;380" dur="3.62s" repeatCount="indefinite" begin="1.42s"/>
+        ও
       </text>
       <text x="509" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="3.84s" repeatCount="indefinite" begin="2.23s"/>
+        <animate attributeName="y" values="-80;380" dur="3.62s" repeatCount="indefinite" begin="1.42s"/>
         গ
       </text>
     </g>
-    <g opacity="0.2">
+    <g opacity="0.15">
       <text x="527" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="3.22s" repeatCount="indefinite" begin="0.69s"/>
-        ত
+        <animate attributeName="y" values="-80;380" dur="3.79s" repeatCount="indefinite" begin="0.52s"/>
+        خ
       </text>
       <text x="527" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="3.22s" repeatCount="indefinite" begin="0.69s"/>
-        স
+        <animate attributeName="y" values="-80;380" dur="3.79s" repeatCount="indefinite" begin="0.52s"/>
+        ঔ
       </text>
       <text x="527" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="3.22s" repeatCount="indefinite" begin="0.69s"/>
-        খ
+        <animate attributeName="y" values="-80;380" dur="3.79s" repeatCount="indefinite" begin="0.52s"/>
+        ঈ
       </text>
     </g>
-    <g opacity="0.16">
+    <g opacity="0.21">
       <text x="545" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="2.53s" repeatCount="indefinite" begin="2.12s"/>
-        আ
+        <animate attributeName="y" values="-80;380" dur="4.17s" repeatCount="indefinite" begin="2.58s"/>
+        خ
       </text>
       <text x="545" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="2.53s" repeatCount="indefinite" begin="2.12s"/>
-        প
+        <animate attributeName="y" values="-80;380" dur="4.17s" repeatCount="indefinite" begin="2.58s"/>
+        ব
       </text>
       <text x="545" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="2.53s" repeatCount="indefinite" begin="2.12s"/>
-        অ
+        <animate attributeName="y" values="-80;380" dur="4.17s" repeatCount="indefinite" begin="2.58s"/>
+        ঋ
       </text>
     </g>
     <g opacity="0.16">
       <text x="563" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="2.59s" repeatCount="indefinite" begin="2.97s"/>
-        ই
+        <animate attributeName="y" values="-80;380" dur="3.87s" repeatCount="indefinite" begin="0.64s"/>
+        য
       </text>
       <text x="563" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="2.59s" repeatCount="indefinite" begin="2.97s"/>
-        উ
+        <animate attributeName="y" values="-80;380" dur="3.87s" repeatCount="indefinite" begin="0.64s"/>
+        র
       </text>
       <text x="563" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="2.59s" repeatCount="indefinite" begin="2.97s"/>
-        ঢ
+        <animate attributeName="y" values="-80;380" dur="3.87s" repeatCount="indefinite" begin="0.64s"/>
+        গ
       </text>
     </g>
-    <g opacity="0.2">
+    <g opacity="0.16">
       <text x="581" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="2.92s" repeatCount="indefinite" begin="1.59s"/>
-        ঠ
+        <animate attributeName="y" values="-80;380" dur="2.99s" repeatCount="indefinite" begin="0.87s"/>
+        ঞ
       </text>
       <text x="581" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="2.92s" repeatCount="indefinite" begin="1.59s"/>
-        আ
+        <animate attributeName="y" values="-80;380" dur="2.99s" repeatCount="indefinite" begin="0.87s"/>
+        য়
       </text>
       <text x="581" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="2.92s" repeatCount="indefinite" begin="1.59s"/>
-        ং
-      </text>
-    </g>
-    <g opacity="0.2">
-      <text x="599" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="3.21s" repeatCount="indefinite" begin="0.78s"/>
-        ঢ
-      </text>
-      <text x="599" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="3.21s" repeatCount="indefinite" begin="0.78s"/>
-        আ
-      </text>
-      <text x="599" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="3.21s" repeatCount="indefinite" begin="0.78s"/>
-        ই
+        <animate attributeName="y" values="-80;380" dur="2.99s" repeatCount="indefinite" begin="0.87s"/>
+        ঞ
       </text>
     </g>
     <g opacity="0.21">
-      <text x="617" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="2.98s" repeatCount="indefinite" begin="1.85s"/>
-        এ
+      <text x="599" y="0" opacity="1.0">
+        <animate attributeName="y" values="-80;380" dur="3.57s" repeatCount="indefinite" begin="0.49s"/>
+        উ
       </text>
-      <text x="617" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="2.98s" repeatCount="indefinite" begin="1.85s"/>
-        ঠ
+      <text x="599" y="0" opacity="0.65">
+        <animate attributeName="y" values="-80;380" dur="3.57s" repeatCount="indefinite" begin="0.49s"/>
+        ব
       </text>
-      <text x="617" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="2.98s" repeatCount="indefinite" begin="1.85s"/>
-        থ
+      <text x="599" y="0" opacity="0.3">
+        <animate attributeName="y" values="-80;380" dur="3.57s" repeatCount="indefinite" begin="0.49s"/>
+        অ
       </text>
     </g>
-    <g opacity="0.53">
-      <text x="635" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="3.79s" repeatCount="indefinite" begin="2.5s"/>
-        এ
+    <g opacity="0.15">
+      <text x="617" y="0" opacity="1.0">
+        <animate attributeName="y" values="-80;380" dur="3.27s" repeatCount="indefinite" begin="1.33s"/>
+        ণ
       </text>
-      <text x="635" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="3.79s" repeatCount="indefinite" begin="2.5s"/>
-        ড
+      <text x="617" y="0" opacity="0.65">
+        <animate attributeName="y" values="-80;380" dur="3.27s" repeatCount="indefinite" begin="1.33s"/>
+        য়
       </text>
-      <text x="635" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="3.79s" repeatCount="indefinite" begin="2.5s"/>
-        ছ
+      <text x="617" y="0" opacity="0.3">
+        <animate attributeName="y" values="-80;380" dur="3.27s" repeatCount="indefinite" begin="1.33s"/>
+        ঞ
       </text>
     </g>
     <g opacity="0.57">
-      <text x="653" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="2.52s" repeatCount="indefinite" begin="2.53s"/>
-        স
+      <text x="635" y="0" opacity="1.0">
+        <animate attributeName="y" values="-80;380" dur="3.25s" repeatCount="indefinite" begin="1.9s"/>
+        ভ
       </text>
-      <text x="653" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="2.52s" repeatCount="indefinite" begin="2.53s"/>
-        স
+      <text x="635" y="0" opacity="0.65">
+        <animate attributeName="y" values="-80;380" dur="3.25s" repeatCount="indefinite" begin="1.9s"/>
+        উ
       </text>
-      <text x="653" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="2.52s" repeatCount="indefinite" begin="2.53s"/>
-        ঊ
-      </text>
-    </g>
-    <g opacity="0.59">
-      <text x="671" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="3.69s" repeatCount="indefinite" begin="1.69s"/>
-        দ
-      </text>
-      <text x="671" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="3.69s" repeatCount="indefinite" begin="1.69s"/>
+      <text x="635" y="0" opacity="0.3">
+        <animate attributeName="y" values="-80;380" dur="3.25s" repeatCount="indefinite" begin="1.9s"/>
         য়
       </text>
+    </g>
+    <g opacity="0.51">
+      <text x="653" y="0" opacity="1.0">
+        <animate attributeName="y" values="-80;380" dur="3.64s" repeatCount="indefinite" begin="0.24s"/>
+        য়
+      </text>
+      <text x="653" y="0" opacity="0.65">
+        <animate attributeName="y" values="-80;380" dur="3.64s" repeatCount="indefinite" begin="0.24s"/>
+        ঃ
+      </text>
+      <text x="653" y="0" opacity="0.3">
+        <animate attributeName="y" values="-80;380" dur="3.64s" repeatCount="indefinite" begin="0.24s"/>
+        র
+      </text>
+    </g>
+    <g opacity="0.52">
+      <text x="671" y="0" opacity="1.0">
+        <animate attributeName="y" values="-80;380" dur="3.03s" repeatCount="indefinite" begin="0.44s"/>
+        ঋ
+      </text>
+      <text x="671" y="0" opacity="0.65">
+        <animate attributeName="y" values="-80;380" dur="3.03s" repeatCount="indefinite" begin="0.44s"/>
+        য
+      </text>
       <text x="671" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="3.69s" repeatCount="indefinite" begin="1.69s"/>
+        <animate attributeName="y" values="-80;380" dur="3.03s" repeatCount="indefinite" begin="0.44s"/>
         ঢ
       </text>
     </g>
-    <g opacity="0.3">
+    <g opacity="0.39">
       <text x="689" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="2.54s" repeatCount="indefinite" begin="2.84s"/>
-        ঞ
+        <animate attributeName="y" values="-80;380" dur="3.17s" repeatCount="indefinite" begin="0.68s"/>
+        ঔ
       </text>
       <text x="689" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="2.54s" repeatCount="indefinite" begin="2.84s"/>
-        দ
+        <animate attributeName="y" values="-80;380" dur="3.17s" repeatCount="indefinite" begin="0.68s"/>
+        র
       </text>
       <text x="689" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="2.54s" repeatCount="indefinite" begin="2.84s"/>
-        ং
+        <animate attributeName="y" values="-80;380" dur="3.17s" repeatCount="indefinite" begin="0.68s"/>
+        ড়
       </text>
     </g>
-    <g opacity="0.41">
+    <g opacity="0.43">
       <text x="707" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="3.97s" repeatCount="indefinite" begin="0.01s"/>
-        চ
+        <animate attributeName="y" values="-80;380" dur="3.38s" repeatCount="indefinite" begin="0.66s"/>
+        ঔ
       </text>
       <text x="707" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="3.97s" repeatCount="indefinite" begin="0.01s"/>
-        ছ
+        <animate attributeName="y" values="-80;380" dur="3.38s" repeatCount="indefinite" begin="0.66s"/>
+        ং
       </text>
       <text x="707" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="3.97s" repeatCount="indefinite" begin="0.01s"/>
+        <animate attributeName="y" values="-80;380" dur="3.38s" repeatCount="indefinite" begin="0.66s"/>
         ণ
       </text>
     </g>
-    <g opacity="0.4">
+    <g opacity="0.19">
       <text x="725" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="3.73s" repeatCount="indefinite" begin="1.48s"/>
-        ঁ
+        <animate attributeName="y" values="-80;380" dur="3.6s" repeatCount="indefinite" begin="1.58s"/>
+        ল
       </text>
       <text x="725" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="3.73s" repeatCount="indefinite" begin="1.48s"/>
-        ভ
+        <animate attributeName="y" values="-80;380" dur="3.6s" repeatCount="indefinite" begin="1.58s"/>
+        র
       </text>
       <text x="725" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="3.73s" repeatCount="indefinite" begin="1.48s"/>
-        ঈ
+        <animate attributeName="y" values="-80;380" dur="3.6s" repeatCount="indefinite" begin="1.58s"/>
+        ঐ
       </text>
     </g>
-    <g opacity="0.23">
+    <g opacity="0.2">
       <text x="743" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="3.06s" repeatCount="indefinite" begin="1.6s"/>
-        ঙ
+        <animate attributeName="y" values="-80;380" dur="3.57s" repeatCount="indefinite" begin="0.26s"/>
+        ও
       </text>
       <text x="743" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="3.06s" repeatCount="indefinite" begin="1.6s"/>
-        ই
+        <animate attributeName="y" values="-80;380" dur="3.57s" repeatCount="indefinite" begin="0.26s"/>
+        ব
       </text>
       <text x="743" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="3.06s" repeatCount="indefinite" begin="1.6s"/>
-        ঁ
+        <animate attributeName="y" values="-80;380" dur="3.57s" repeatCount="indefinite" begin="0.26s"/>
+        প
       </text>
     </g>
     <g opacity="0.27">
       <text x="761" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="3.61s" repeatCount="indefinite" begin="0.36s"/>
-        গ
+        <animate attributeName="y" values="-80;380" dur="2.84s" repeatCount="indefinite" begin="2.62s"/>
+        ঢ়
       </text>
       <text x="761" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="3.61s" repeatCount="indefinite" begin="0.36s"/>
-        ঠ
+        <animate attributeName="y" values="-80;380" dur="2.84s" repeatCount="indefinite" begin="2.62s"/>
+        ট
       </text>
       <text x="761" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="3.61s" repeatCount="indefinite" begin="0.36s"/>
-        গ
+        <animate attributeName="y" values="-80;380" dur="2.84s" repeatCount="indefinite" begin="2.62s"/>
+        ঋ
       </text>
     </g>
-    <g opacity="0.19">
+    <g opacity="0.33">
       <text x="779" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="3.91s" repeatCount="indefinite" begin="0.45s"/>
-        ঞ
+        <animate attributeName="y" values="-80;380" dur="3.83s" repeatCount="indefinite" begin="0.78s"/>
+        ঠ
       </text>
       <text x="779" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="3.91s" repeatCount="indefinite" begin="0.45s"/>
-        ড়
+        <animate attributeName="y" values="-80;380" dur="3.83s" repeatCount="indefinite" begin="0.78s"/>
+        ঁ
       </text>
       <text x="779" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="3.91s" repeatCount="indefinite" begin="0.45s"/>
+        <animate attributeName="y" values="-80;380" dur="3.83s" repeatCount="indefinite" begin="0.78s"/>
+        ধ
+      </text>
+    </g>
+    <g opacity="0.49">
+      <text x="797" y="0" opacity="1.0">
+        <animate attributeName="y" values="-80;380" dur="2.55s" repeatCount="indefinite" begin="2.72s"/>
+        য়
+      </text>
+      <text x="797" y="0" opacity="0.65">
+        <animate attributeName="y" values="-80;380" dur="2.55s" repeatCount="indefinite" begin="2.72s"/>
+        ধ
+      </text>
+      <text x="797" y="0" opacity="0.3">
+        <animate attributeName="y" values="-80;380" dur="2.55s" repeatCount="indefinite" begin="2.72s"/>
+        দ
+      </text>
+    </g>
+    <g opacity="0.55">
+      <text x="815" y="0" opacity="1.0">
+        <animate attributeName="y" values="-80;380" dur="3.67s" repeatCount="indefinite" begin="1.65s"/>
+        ধ
+      </text>
+      <text x="815" y="0" opacity="0.65">
+        <animate attributeName="y" values="-80;380" dur="3.67s" repeatCount="indefinite" begin="1.65s"/>
+        ঃ
+      </text>
+      <text x="815" y="0" opacity="0.3">
+        <animate attributeName="y" values="-80;380" dur="3.67s" repeatCount="indefinite" begin="1.65s"/>
         ছ
       </text>
     </g>
-    <g opacity="0.19">
-      <text x="797" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="3.22s" repeatCount="indefinite" begin="1.31s"/>
-        ব
-      </text>
-      <text x="797" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="3.22s" repeatCount="indefinite" begin="1.31s"/>
-        গ
-      </text>
-      <text x="797" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="3.22s" repeatCount="indefinite" begin="1.31s"/>
-        ট
-      </text>
-    </g>
-    <g opacity="0.31">
-      <text x="815" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="2.98s" repeatCount="indefinite" begin="1.83s"/>
-        য
-      </text>
-      <text x="815" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="2.98s" repeatCount="indefinite" begin="1.83s"/>
-        খ
-      </text>
-      <text x="815" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="2.98s" repeatCount="indefinite" begin="1.83s"/>
-        স
-      </text>
-    </g>
-    <g opacity="0.28">
+    <g opacity="0.56">
       <text x="833" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="4.07s" repeatCount="indefinite" begin="2.64s"/>
-        ম
+        <animate attributeName="y" values="-80;380" dur="2.57s" repeatCount="indefinite" begin="1.24s"/>
+        ঘ
       </text>
       <text x="833" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="4.07s" repeatCount="indefinite" begin="2.64s"/>
-        ঋ
+        <animate attributeName="y" values="-80;380" dur="2.57s" repeatCount="indefinite" begin="1.24s"/>
+        শ
       </text>
       <text x="833" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="4.07s" repeatCount="indefinite" begin="2.64s"/>
-        স
+        <animate attributeName="y" values="-80;380" dur="2.57s" repeatCount="indefinite" begin="1.24s"/>
+        আ
       </text>
     </g>
-    <g opacity="0.36">
+    <g opacity="0.59">
       <text x="851" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="4.23s" repeatCount="indefinite" begin="2.53s"/>
-        ড়
+        <animate attributeName="y" values="-80;380" dur="2.6s" repeatCount="indefinite" begin="1.35s"/>
+        ঁ
       </text>
       <text x="851" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="4.23s" repeatCount="indefinite" begin="2.53s"/>
-        ং
+        <animate attributeName="y" values="-80;380" dur="2.6s" repeatCount="indefinite" begin="1.35s"/>
+        خ
       </text>
       <text x="851" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="4.23s" repeatCount="indefinite" begin="2.53s"/>
-        ন
+        <animate attributeName="y" values="-80;380" dur="2.6s" repeatCount="indefinite" begin="1.35s"/>
+        ঘ
       </text>
     </g>
-    <g opacity="0.39">
+    <g opacity="0.32">
       <text x="869" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="4.03s" repeatCount="indefinite" begin="2.21s"/>
-        ঊ
+        <animate attributeName="y" values="-80;380" dur="4.4s" repeatCount="indefinite" begin="0.58s"/>
+        য
       </text>
       <text x="869" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="4.03s" repeatCount="indefinite" begin="2.21s"/>
-        উ
+        <animate attributeName="y" values="-80;380" dur="4.4s" repeatCount="indefinite" begin="0.58s"/>
+        দ
       </text>
       <text x="869" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="4.03s" repeatCount="indefinite" begin="2.21s"/>
-        ঢ়
+        <animate attributeName="y" values="-80;380" dur="4.4s" repeatCount="indefinite" begin="0.58s"/>
+        ব
       </text>
     </g>
-    <g opacity="0.45">
+    <g opacity="0.51">
       <text x="887" y="0" opacity="1.0">
-        <animate attributeName="y" values="-80;380" dur="4.23s" repeatCount="indefinite" begin="1.42s"/>
-        ঢ
+        <animate attributeName="y" values="-80;380" dur="4.41s" repeatCount="indefinite" begin="1.99s"/>
+        চ
       </text>
       <text x="887" y="0" opacity="0.65">
-        <animate attributeName="y" values="-80;380" dur="4.23s" repeatCount="indefinite" begin="1.42s"/>
-        ভ
+        <animate attributeName="y" values="-80;380" dur="4.41s" repeatCount="indefinite" begin="1.99s"/>
+        ঋ
       </text>
       <text x="887" y="0" opacity="0.3">
-        <animate attributeName="y" values="-80;380" dur="4.23s" repeatCount="indefinite" begin="1.42s"/>
-        ত
+        <animate attributeName="y" values="-80;380" dur="4.41s" repeatCount="indefinite" begin="1.99s"/>
+        গ
       </text>
     </g>
   </g>
@@ -807,15 +812,10 @@
     <text x="450" y="168" font-family="'Outfit', sans-serif" font-size="70" font-weight="bold" fill="none" stroke="#ff4500" stroke-width="1" opacity="0.3" text-anchor="middle" letter-spacing="12">
       AVRO
     </text>
-    <!-- Animated Subtitle -->
-    <g font-family="'Noto Serif Bengali', serif" font-size="18" font-weight="500" fill="#3a86ff" text-anchor="middle" letter-spacing="4">
-      <text x="450" y="222" opacity="1">
-        এসো বাংলায় লিখি
-        <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.42;0.50;0.92;1" dur="7s" repeatCount="indefinite"/>
-      </text>
-      <text x="450" y="222" opacity="0">
+    <!-- Animated Subtitle (Unfolding reveal) -->
+    <g clip-path="url(#revealClip)">
+      <text x="450" y="222" font-family="'Noto Serif Bengali', serif" font-size="18" font-weight="500" fill="#3a86ff" text-anchor="middle" letter-spacing="4">
         এসো বাংলায় লিখি বাংলা...
-        <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.42;0.50;0.92;1" dur="7s" repeatCount="indefinite"/>
       </text>
     </g>
   </g>
