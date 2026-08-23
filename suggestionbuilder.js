@@ -438,39 +438,16 @@ SuggestionBuilder.prototype = {
     
     _saveCandidateSelectionsToFile: function(){
         try {
-            var file = gio.File.new_for_path ( GLib.get_home_dir() + "/.candidate-selections.json");
-            
-            if (file.query_exists (null)) {
-                file.delete (null);
-            }
-            /*
-            var file_stream = file.create (gio.FileCreateFlags.NONE, null);
             var json = JSON.stringify(this._candidateSelections);
             json = this._convertToUnicodeValue(json);
-            // Write text data to file
-            var data_stream =  gio.DataOutputStream.new (file_stream);
-            data_stream.put_string (json, null);
-            */
-            var that = this;
-            // Create a new file with this name
-            file.create_async(gio.FileCreateFlags.NONE, 0, null, 
-                    function(source, result){
-                        var file_stream = source.create_finish(result);
-                        
-                        if (file_stream){
-                            var json = JSON.stringify(that._candidateSelections);
-                            json = that._convertToUnicodeValue(json);
 
-                            // Write text data to file
-                            var data_stream =  gio.DataOutputStream.new (file_stream);
-                            data_stream.put_string (json, null);
-                        } else {
-                            this._logger(e, 'Error in _saveCandidateSelectionsToFile');
-                        }
-                    });
+            var file = gio.File.new_for_path(GLib.get_home_dir() + "/.candidate-selections.json");
+            // replace_contents atomically overwrites without a delete+create race
+            file.replace_contents(json, null, false,
+                gio.FileCreateFlags.NONE, null);
         } catch (e) {
            this._logger(e, '_saveCandidateSelectionsToFile Error');
-       }
+        }
     },
 
 
