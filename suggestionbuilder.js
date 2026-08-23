@@ -122,21 +122,24 @@ SuggestionBuilder.prototype = {
     
     
     _sortByPhoneticRelevance: function (phonetic, dictSuggestion){
-        //Copy array
-        var sortedSuggestion = dictSuggestion.slice(0);
+        var list = [];
+        var len = dictSuggestion.length;
+        for (var i = 0; i < len; ++i) {
+            var item = dictSuggestion[i];
+            list.push({
+                item: item,
+                dist: EditDistance.levenshtein(phonetic, item)
+            });
+        }
         
-        sortedSuggestion.sort(function(a, b){
-            var da = EditDistance.levenshtein(phonetic, a);
-            var db = EditDistance.levenshtein(phonetic, b);
-
-            if (da < db){
-                 return -1;  
-            } else if (da > db){
-                 return 1;  
-            } else{
-                return 0;
-            }
+        list.sort(function(a, b){
+            return a.dist - b.dist;
         });
+        
+        var sortedSuggestion = [];
+        for (var i = 0; i < len; ++i) {
+            sortedSuggestion.push(list[i].item);
+        }
         
         return sortedSuggestion;
     },
@@ -236,7 +239,7 @@ SuggestionBuilder.prototype = {
                             }
                         }
                         
-                        for (i in tempList){
+                        for (var i = 0; i < tempList.length; i++){
                             rList.push(tempList[i]);
                         }
                     }
@@ -281,7 +284,7 @@ SuggestionBuilder.prototype = {
                 var dictSuggestionWithSuffix = this._addSuffix(splitWord);
 
                 var sortedWords = this._sortByPhoneticRelevance(phonetic, dictSuggestionWithSuffix);
-                for (i in sortedWords){
+                for (var i = 0; i < sortedWords.length; i++){
                     this._addToArray(words, sortedWords[i]);
                 }
         
@@ -294,7 +297,7 @@ SuggestionBuilder.prototype = {
                 suggestion['prevSelection'] = this._getPreviousSelection(splitWord, words);
         
                 //Add padding to all, except exact autocorrect
-                for (i in words){
+                for (var i = 0; i < words.length; i++){
                     if (autoCorrect['exact']){
                         if (autoCorrect['corrected'] != words[i]){
                             words[i] = splitWord['begin'] + words[i] + splitWord['end'];
