@@ -1,8 +1,7 @@
 <p align="center">
   <img src="avro_banner_v4.svg" alt="Avro Keyboard Banner" width="100%">
 </p>
-
-# IBus Avro Keyboard (Linux)
+<h1 align="center">IBus Avro Keyboard (Linux)</h1>
 
 Linux-এর IBus-এর জন্য অভ্র ফনেটিক কি-বোর্ড লেআউট। এটি লিনাক্স ডিস্ট্রিবিউশনগুলোতে অত্যন্ত দ্রুত গতিতে বাংলা লিখতে সাহায্য করে।
 
