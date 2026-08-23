@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="avro_banner.svg" alt="Avro Keyboard Banner" width="100%">
+  <img src="avro_banner.svg?v=3" alt="Avro Keyboard Banner" width="100%">
 </p>
 
 # IBus Avro Keyboard (Linux)
