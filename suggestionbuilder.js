@@ -47,6 +47,8 @@ SuggestionBuilder.prototype = {
         this._loadCandidateSelectionsFromFile();
         this._tempCache = {};
         this._pref = this._defaultPref();
+        this._saveTimeoutId = 0;
+        this._dirty = false;
     },
     
     
@@ -162,21 +164,6 @@ SuggestionBuilder.prototype = {
         if (arr.indexOf(item) == -1){
             arr.push(item);
         }
-    },
-    
-    
-    _convertToUnicodeValue: function(input){
-        var output = '';
-
-        for (var i = 0; i < input.length; i++){
-            var charCode = input.charCodeAt(i);
-            if (charCode >= 255){
-                output += '\\u0' + charCode.toString(16);
-            } else {
-                output += input.charAt(i);
-            }
-        }
-        return output;
     },
     
     
@@ -436,17 +423,76 @@ SuggestionBuilder.prototype = {
     },
     
     
-    _saveCandidateSelectionsToFile: function(){
-        try {
-            var json = JSON.stringify(this._candidateSelections);
-            json = this._convertToUnicodeValue(json);
+    _pruneCandidateSelections: function() {
+        var keys = Object.keys(this._candidateSelections);
+        if (keys.length <= 2000) return;
 
+        var keyTimes = [];
+        for (var i = 0; i < keys.length; i++) {
+            var key = keys[i];
+            var entry = this._candidateSelections[key];
+            var maxTime = 0;
+            if (typeof entry === 'string') {
+                maxTime = 0;
+            } else if (typeof entry === 'object' && entry !== null) {
+                for (var candidate in entry) {
+                    if (entry[candidate].lastSelected > maxTime) {
+                        maxTime = entry[candidate].lastSelected;
+                    }
+                }
+            }
+            keyTimes.push({ key: key, time: maxTime });
+        }
+
+        keyTimes.sort(function(a, b) {
+            return b.time - a.time;
+        });
+
+        for (var i = 1500; i < keyTimes.length; i++) {
+            delete this._candidateSelections[keyTimes[i].key];
+        }
+    },
+
+
+    _saveCandidateSelectionsToFile: function(){
+        this._dirty = true;
+        if (this._saveTimeoutId) {
+            GLib.source_remove(this._saveTimeoutId);
+            this._saveTimeoutId = 0;
+        }
+        var that = this;
+        this._saveTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 2000, function() {
+            that._saveTimeoutId = 0;
+            that._flushSave();
+            return GLib.SOURCE_REMOVE;
+        });
+    },
+
+
+    _flushSave: function() {
+        if (!this._dirty) return;
+        this._dirty = false;
+        try {
+            this._pruneCandidateSelections();
+            var json = JSON.stringify(this._candidateSelections);
+            var bytes = GLib.Bytes.new(json);
             var file = gio.File.new_for_path(GLib.get_home_dir() + "/.candidate-selections.json");
-            // replace_contents atomically overwrites without a delete+create race
-            file.replace_contents(json, null, false,
-                gio.FileCreateFlags.NONE, null);
+            file.replace_contents_async(
+                bytes,
+                null,
+                false,
+                gio.FileCreateFlags.NONE,
+                null,
+                function(source, result) {
+                    try {
+                        source.replace_contents_finish(result);
+                    } catch (e) {
+                        // ignore/log error
+                    }
+                }
+            );
         } catch (e) {
-           this._logger(e, '_saveCandidateSelectionsToFile Error');
+           this._logger(e, '_flushSave Error');
         }
     },
 
