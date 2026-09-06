@@ -3,9 +3,10 @@
 // IBus Avro Phonetic Parser Performance Test
 // =============================================================================
 imports.searchPath.unshift('..');
+imports.searchPath.unshift('../src');
+imports.searchPath.unshift('./src');
 imports.searchPath.unshift('.');
-imports.searchPath.unshift('/home/naimul/ibus-avro');
-const avrolib = imports.avrolib;
+const avrolib = imports.core.parser.phonetic;
 const GLib = imports.gi.GLib;
 
 var parser = avrolib.OmicronLab.Avro.Phonetic;

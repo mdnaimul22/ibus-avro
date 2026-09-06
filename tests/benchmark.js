@@ -3,8 +3,10 @@
 // IBus Avro Suggestion Engine Performance Benchmark
 // =============================================================================
 imports.searchPath.unshift('..');
+imports.searchPath.unshift('../src');
+imports.searchPath.unshift('./src');
 imports.searchPath.unshift('.');
-const suggestion = imports.suggestionbuilder;
+const suggestion = imports.services.suggestion_engine;
 const GLib = imports.gi.GLib;
 
 var builder = new suggestion.SuggestionBuilder();

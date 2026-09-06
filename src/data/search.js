@@ -25,9 +25,9 @@
 */
 
 
-const db = imports.avrodict;
-const RegexServer = imports.avroregexlib;
-const utfconv = imports.utf8;
+const db = imports.data.avrodict;
+const RegexServer = imports.core.parser.regex;
+const utfconv = imports.helpers.utf8;
 
 function DBSearch () {
     this._init();

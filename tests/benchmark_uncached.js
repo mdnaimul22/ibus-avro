@@ -3,9 +3,10 @@
 // IBus Avro Uncached Suggestion Performance Test
 // =============================================================================
 imports.searchPath.unshift('..');
+imports.searchPath.unshift('../src');
+imports.searchPath.unshift('./src');
 imports.searchPath.unshift('.');
-imports.searchPath.unshift('/home/naimul/ibus-avro');
-const suggestion = imports.suggestionbuilder;
+const suggestion = imports.services.suggestion_engine;
 const GLib = imports.gi.GLib;
 
 var builder = new suggestion.SuggestionBuilder();

@@ -28,9 +28,12 @@
 
 
 const IBus = imports.gi.IBus;
+imports.searchPath.unshift('/usr/share/ibus-avro/src');
+imports.searchPath.unshift('./src');
 imports.searchPath.unshift('.');
-const eevars = imports.evars;
-const suggestion = imports.suggestionbuilder;
+
+const paths = imports.config.paths;
+const suggestion = imports.services.suggestion_engine;
 const Gio = imports.gi.Gio;
 const prefwindow = imports.pref;
 
@@ -379,7 +382,7 @@ if (bus.is_connected()) {
             license: "MPL 1.1",
             author: "Sarim Khan <sarim2005@gmail.com>",
             homepage: "https://github.com/sarim/ibus-avro",
-            command_line: eevars.get_libexecdir() + "/main-gjs.js",
+            command_line: paths.get_libexecdir() + "/main-gjs.js",
             textdomain: "avro-phonetic"
         });
     } catch (error) {
@@ -390,7 +393,7 @@ if (bus.is_connected()) {
             license: "MPL 1.1",
             author: "Sarim Khan <sarim2005@gmail.com>",
             homepage: "https://github.com/sarim/ibus-avro",
-            exec: eevars.get_libexecdir() + "/main-gjs.js",
+            exec: paths.get_libexecdir() + "/main-gjs.js",
             textdomain: "avro-phonetic"
         });
     }
@@ -404,9 +407,9 @@ if (bus.is_connected()) {
             language: "bn",
             license: "MPL 1.1",
             author: "Sarim Khan <sarim2005@gmail.com>",
-            icon: eevars.get_pkgdatadir() + "/avro-bangla.png",
+            icon: paths.get_pkgdatadir() + "/avro-bangla.png",
             layout: "bn",
-            setup: "/usr/bin/env gjs --include-path=" + eevars.get_pkgdatadir() + " " + eevars.get_pkgdatadir() + "/pref.js --standalone"
+            setup: "/usr/bin/env gjs --include-path=" + paths.get_pkgdatadir() + " " + paths.get_pkgdatadir() + "/pref.js --standalone"
         });
     } catch (error) {
         var avroenginedesc = new IBus.EngineDesc({
@@ -416,7 +419,7 @@ if (bus.is_connected()) {
             language: "bn",
             license: "MPL 1.1",
             author: "Sarim Khan <sarim2005@gmail.com>",
-            icon: eevars.get_pkgdatadir() + "/avro-bangla.png",
+            icon: paths.get_pkgdatadir() + "/avro-bangla.png",
             layout: "bn"
         });
     

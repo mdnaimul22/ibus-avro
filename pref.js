@@ -25,19 +25,22 @@
 */
 
 imports.gi.versions.Gtk = '3.0';
+imports.searchPath.unshift('/usr/share/ibus-avro/src');
+imports.searchPath.unshift('./src');
 imports.searchPath.unshift('.');
 const Gio = imports.gi.Gio;
 const Gtk = imports.gi.Gtk;
 const GLib = imports.gi.GLib;
-const eevars = imports.evars;
+const paths = imports.config.paths;
 
 var prefwindow, switch_preview, switch_newline, switch_dict, lutable_size, cboxorient, scale1;
 
 function runpref() {
 
-    Gtk.init(null, 0);
+    Gtk.init(null);
     let builder = new Gtk.Builder();
-    builder.add_from_file(eevars.get_pkgdatadir() + "/avropref.ui");
+    let ui_file = paths.get_pkgdatadir() + "/src/ui/avropref.ui";
+    builder.add_from_file(ui_file);
 
     prefwindow = builder.get_object("window1");
     switch_preview = builder.get_object("switch_preview");

@@ -2,9 +2,10 @@ const gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
 
 imports.searchPath.unshift('..');
+imports.searchPath.unshift('../src');
+imports.searchPath.unshift('./src');
 imports.searchPath.unshift('.');
-imports.searchPath.unshift('/home/naimul/ibus-avro');
-const suggestion = imports.suggestionbuilder;
+const suggestion = imports.services.suggestion_engine;
 
 try {
     print("Initializing SuggestionBuilder...");

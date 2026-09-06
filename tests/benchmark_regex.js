@@ -3,9 +3,10 @@
 // IBus Avro Regex Parser Performance Test
 // =============================================================================
 imports.searchPath.unshift('..');
+imports.searchPath.unshift('../src');
+imports.searchPath.unshift('./src');
 imports.searchPath.unshift('.');
-imports.searchPath.unshift('/home/naimul/ibus-avro');
-const avroregexlib = imports.avroregexlib;
+const avroregexlib = imports.core.parser.regex;
 const GLib = imports.gi.GLib;
 
 var parser = new avroregexlib.AvroRegex();

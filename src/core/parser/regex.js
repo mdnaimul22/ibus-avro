@@ -25,7 +25,7 @@
     =============================================================================
 */
 
-const utfconv = imports.utf8;
+const utfconv = imports.helpers.utf8;
 
 function AvroRegex () {}
 

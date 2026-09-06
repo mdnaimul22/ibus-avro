@@ -27,12 +27,13 @@
 const gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
 
-const dictsearch = imports.dbsearch;
-const autocorrectdb = imports.autocorrect.db;
-const Avroparser = imports.avrolib.OmicronLab.Avro.Phonetic;
-const utfconv = imports.utf8;
-const EditDistance = imports.levenshtein;
-const suffixDict = imports.suffixdict.db;
+const dictsearch = imports.data.search;
+const autocorrectdb = imports.core.autocorrect.autocorrect.db;
+const Avroparser = imports.core.parser.phonetic.OmicronLab.Avro.Phonetic;
+const utfconv = imports.helpers.utf8;
+const EditDistance = imports.core.algorithms.levenshtein;
+const suffixDict = imports.data.suffixdict.db;
+const Settings = imports.config.settings.Settings;
 
 function SuggestionBuilder(){
     this._init();
@@ -390,7 +391,8 @@ SuggestionBuilder.prototype = {
     
     _loadCandidateSelectionsFromFile: function(){
         try {
-            var file = gio.File.new_for_path(GLib.get_home_dir() + "/.candidate-selections.json");
+            var candidateFile = Settings.CANDIDATE_FILE_NAME;
+            var file = gio.File.new_for_path(GLib.get_home_dir() + candidateFile);
         
             if (file.query_exists (null)) {
                 
@@ -425,7 +427,7 @@ SuggestionBuilder.prototype = {
     
     _pruneCandidateSelections: function() {
         var keys = Object.keys(this._candidateSelections);
-        if (keys.length <= 2000) return;
+        if (keys.length <= Settings.PRUNE_KEY_LIMIT) return;
 
         var keyTimes = [];
         for (var i = 0; i < keys.length; i++) {
@@ -448,7 +450,7 @@ SuggestionBuilder.prototype = {
             return b.time - a.time;
         });
 
-        for (var i = 1500; i < keyTimes.length; i++) {
+        for (var i = Settings.PRUNE_KEEP_LIMIT; i < keyTimes.length; i++) {
             delete this._candidateSelections[keyTimes[i].key];
         }
     },
@@ -461,7 +463,7 @@ SuggestionBuilder.prototype = {
             this._saveTimeoutId = 0;
         }
         var that = this;
-        this._saveTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 2000, function() {
+        this._saveTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, Settings.SAVE_DEBOUNCE_MS, function() {
             that._saveTimeoutId = 0;
             that._flushSave();
             return GLib.SOURCE_REMOVE;
@@ -474,9 +476,9 @@ SuggestionBuilder.prototype = {
         this._dirty = false;
         try {
             this._pruneCandidateSelections();
-            var json = JSON.stringify(this._candidateSelections, null, 2);
+            var json = JSON.stringify(this._candidateSelections, null, Settings.JSON_INDENT);
             var bytes = GLib.Bytes.new(json);
-            var file = gio.File.new_for_path(GLib.get_home_dir() + "/.candidate-selections.json");
+            var file = gio.File.new_for_path(GLib.get_home_dir() + Settings.CANDIDATE_FILE_NAME);
             file.replace_contents_async(
                 bytes,
                 null,
