@@ -474,7 +474,7 @@ SuggestionBuilder.prototype = {
         this._dirty = false;
         try {
             this._pruneCandidateSelections();
-            var json = JSON.stringify(this._candidateSelections);
+            var json = JSON.stringify(this._candidateSelections, null, 2);
             var bytes = GLib.Bytes.new(json);
             var file = gio.File.new_for_path(GLib.get_home_dir() + "/.candidate-selections.json");
             file.replace_contents_async(
