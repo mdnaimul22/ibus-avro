@@ -1,15 +1,13 @@
 const gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
 
-imports.searchPath.unshift('..');
-imports.searchPath.unshift('../src');
 imports.searchPath.unshift('./src');
-imports.searchPath.unshift('.');
-const suggestion = imports.services.suggestion_engine;
+imports.searchPath.unshift('../src');
+const Services = imports.services.index;
 
 try {
     print("Initializing SuggestionBuilder...");
-    var sb = new suggestion.SuggestionBuilder();
+    var sb = new Services.SuggestionEngine();
     
     print("Initial dirty state: " + sb._dirty);
     print("Initial saveTimeoutId: " + sb._saveTimeoutId);

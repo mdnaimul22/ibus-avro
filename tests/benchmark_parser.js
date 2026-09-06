@@ -2,14 +2,12 @@
 // =============================================================================
 // IBus Avro Phonetic Parser Performance Test
 // =============================================================================
-imports.searchPath.unshift('..');
-imports.searchPath.unshift('../src');
 imports.searchPath.unshift('./src');
-imports.searchPath.unshift('.');
-const avrolib = imports.core.parser.phonetic;
+imports.searchPath.unshift('../src');
+const Core = imports.core.index;
 const GLib = imports.gi.GLib;
 
-var parser = avrolib.OmicronLab.Avro.Phonetic;
+var parser = Core.AvroPhonetic;
 
 var testWords = [
     "ami", "bangla", "gan", "gai", "tumi", "ki", "korcho", "amader", "desh", "shadhin",

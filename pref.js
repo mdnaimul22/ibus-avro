@@ -27,11 +27,11 @@
 imports.gi.versions.Gtk = '3.0';
 imports.searchPath.unshift('/usr/share/ibus-avro/src');
 imports.searchPath.unshift('./src');
-imports.searchPath.unshift('.');
 const Gio = imports.gi.Gio;
 const Gtk = imports.gi.Gtk;
 const GLib = imports.gi.GLib;
-const paths = imports.config.paths;
+const Config = imports.config.index;
+const paths = Config.Paths;
 
 var prefwindow, switch_preview, switch_newline, switch_dict, lutable_size, cboxorient, scale1;
 

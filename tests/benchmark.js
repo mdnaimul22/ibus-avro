@@ -2,14 +2,12 @@
 // =============================================================================
 // IBus Avro Suggestion Engine Performance Benchmark
 // =============================================================================
-imports.searchPath.unshift('..');
-imports.searchPath.unshift('../src');
 imports.searchPath.unshift('./src');
-imports.searchPath.unshift('.');
-const suggestion = imports.services.suggestion_engine;
+imports.searchPath.unshift('../src');
+const Services = imports.services.index;
 const GLib = imports.gi.GLib;
 
-var builder = new suggestion.SuggestionBuilder();
+var builder = new Services.SuggestionEngine();
 
 // Test words list containing various prefixes, common terms, and edge cases
 var testWords = [

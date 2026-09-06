@@ -1,7 +1,9 @@
 const paths = imports.config.paths;
 const settings = imports.config.settings;
 
+var Paths = paths;
+var Settings = settings.Settings;
 var Config = {
-    paths: paths,
-    settings: settings.Settings
+    Paths: paths,
+    Settings: settings.Settings
 };

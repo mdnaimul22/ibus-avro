@@ -2,14 +2,12 @@
 // =============================================================================
 // IBus Avro Regex Parser Performance Test
 // =============================================================================
-imports.searchPath.unshift('..');
-imports.searchPath.unshift('../src');
 imports.searchPath.unshift('./src');
-imports.searchPath.unshift('.');
-const avroregexlib = imports.core.parser.regex;
+imports.searchPath.unshift('../src');
+const Core = imports.core.index;
 const GLib = imports.gi.GLib;
 
-var parser = new avroregexlib.AvroRegex();
+var parser = new Core.AvroRegex();
 
 var testWords = [
     "ami", "bangla", "gan", "gai", "tumi", "ki", "korcho", "amader", "desh", "shadhin",

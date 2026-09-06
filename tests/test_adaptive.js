@@ -137,17 +137,10 @@ function buildSuggestionBuilder() {
 
         _recordSelection: function(eng, candidate, incrementFreq) {
             if (!eng || !candidate) return;
-            let entry = this._candidateSelections[eng];
-
-            if (typeof entry === 'string') {
-                const legacyWord = entry;
+            if (!this._candidateSelections[eng]) {
                 this._candidateSelections[eng] = {};
-                this._candidateSelections[eng][legacyWord] = { freq: 1, lastSelected: Date.now() };
-                entry = this._candidateSelections[eng];
-            } else if (typeof entry !== 'object' || entry === null) {
-                this._candidateSelections[eng] = {};
-                entry = this._candidateSelections[eng];
             }
+            let entry = this._candidateSelections[eng];
 
             if (!entry[candidate]) {
                 entry[candidate] = { freq: 0, lastSelected: 0 };
@@ -161,7 +154,6 @@ function buildSuggestionBuilder() {
         _getPreviousSelectionString: function(key) {
             const entry = this._candidateSelections[key];
             if (!entry) return '';
-            if (typeof entry === 'string') return entry;
             let bestWord = '', bestFreq = -1;
             for (const bw in entry) {
                 if (entry[bw].freq > bestFreq) {
@@ -176,10 +168,8 @@ function buildSuggestionBuilder() {
             const freqMap = {};
             if (searchKey && this._candidateSelections[searchKey]) {
                 const entry = this._candidateSelections[searchKey];
-                if (typeof entry === 'string') {
-                    freqMap[entry] = 1;
-                } else if (typeof entry === 'object' && entry !== null) {
-                    for (const bw in entry) freqMap[bw] = entry[bw].freq || 1;
+                for (const bw in entry) {
+                    freqMap[bw] = entry[bw].freq;
                 }
             }
             const list = dictSuggestion.map(item => {
@@ -264,14 +254,16 @@ const reloaded = sb2._candidateSelections['ami']?.['আমি']?.freq;
 assert(reloaded === 3, `Reloaded freq for "ami"→"আমি" should be 3 (got ${reloaded})`);
 
 
-// ── TEST 5: legacy string format auto-migrates ────────────────────────────────
-console.log('\n📋  Test 5: Legacy string format is auto-migrated');
-sb2._candidateSelections['bhai'] = 'ভাই';  // inject legacy value
-sb2._recordSelection('bhai', 'ভাই', true); // trigger migration + increment
+// ── TEST 5: Multiple candidates tracked independently ─────────────────────────
+console.log('\n📋  Test 5: Multiple candidates for same key track frequencies');
+sb2._recordSelection('bhai', 'ভাই', true);
+sb2._recordSelection('bhai', 'ভাই', true);
+sb2._recordSelection('bhai', 'ভাইয়া', true);
 
-const migrated = sb2._candidateSelections['bhai'];
-assert(typeof migrated === 'object',    '"bhai" entry should be an object after migration');
-assert(migrated['ভাই']?.freq >= 2,      `"ভাই" freq should be ≥2 after migration+commit (got ${migrated['ভাই']?.freq})`);
+const bhaiEntry = sb2._candidateSelections['bhai'];
+assert(typeof bhaiEntry === 'object',       '"bhai" entry should be an object');
+assert(bhaiEntry['ভাই']?.freq === 2,         `"ভাই" freq should be 2 (got ${bhaiEntry['ভাই']?.freq})`);
+assert(bhaiEntry['ভাইয়া']?.freq === 1,       `"ভাইয়া" freq should be 1 (got ${bhaiEntry['ভাইয়া']?.freq})`);
 
 const bestWord = sb2._getPreviousSelectionString('bhai');
 assert(bestWord === 'ভাই', `_getPreviousSelectionString('bhai') should return "ভাই" (got "${bestWord}")`);

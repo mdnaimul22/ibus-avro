@@ -27,13 +27,18 @@
 const gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
 
-const dictsearch = imports.data.search;
-const autocorrectdb = imports.core.autocorrect.autocorrect.db;
-const Avroparser = imports.core.parser.phonetic.OmicronLab.Avro.Phonetic;
-const utfconv = imports.helpers.utf8;
-const EditDistance = imports.core.algorithms.levenshtein;
-const suffixDict = imports.data.suffixdict.db;
-const Settings = imports.config.settings.Settings;
+const Config = imports.config.index;
+const Core = imports.core.index;
+const Data = imports.data.index;
+const Helpers = imports.helpers.index;
+
+const dictsearch = { DBSearch: Data.DBSearch };
+const autocorrectdb = Core.AutocorrectDB;
+const Avroparser = Core.AvroPhonetic;
+const utfconv = Helpers.UTF8;
+const EditDistance = { levenshtein: Core.Levenshtein };
+const suffixDict = Data.SuffixDictDB;
+const Settings = Config.Settings;
 
 function SuggestionBuilder(){
     this._init();
@@ -129,13 +134,8 @@ SuggestionBuilder.prototype = {
         // Build a frequency map for words the user has previously chosen for this key
         if (searchKey && this._candidateSelections[searchKey]) {
             var entry = this._candidateSelections[searchKey];
-            // Support both legacy string format and new metadata object format
-            if (typeof entry === 'string') {
-                freqMap[entry] = 1;
-            } else if (typeof entry === 'object' && entry !== null) {
-                for (var bw in entry) {
-                    freqMap[bw] = entry[bw].freq || 1;
-                }
+            for (var bw in entry) {
+                freqMap[bw] = entry[bw].freq;
             }
         }
 
@@ -322,9 +322,6 @@ SuggestionBuilder.prototype = {
     _getPreviousSelectionString: function(key){
         var entry = this._candidateSelections[key];
         if (!entry) return '';
-        if (typeof entry === 'string') return entry;
-        // New format: { 'word': { freq: N, lastSelected: T }, ... }
-        // Return the word with the highest frequency
         var bestWord = '';
         var bestFreq = -1;
         for (var bw in entry) {
@@ -434,9 +431,7 @@ SuggestionBuilder.prototype = {
             var key = keys[i];
             var entry = this._candidateSelections[key];
             var maxTime = 0;
-            if (typeof entry === 'string') {
-                maxTime = 0;
-            } else if (typeof entry === 'object' && entry !== null) {
+            if (entry) {
                 for (var candidate in entry) {
                     if (entry[candidate].lastSelected > maxTime) {
                         maxTime = entry[candidate].lastSelected;
@@ -504,18 +499,10 @@ SuggestionBuilder.prototype = {
     // incrementFreq=false: user is navigating suggestions (preview only).
     _recordSelection: function(eng, candidate, incrementFreq){
         if (!eng || !candidate) return;
-        var entry = this._candidateSelections[eng];
-
-        // Migrate legacy string format to metadata object on first write
-        if (typeof entry === 'string') {
-            var legacyWord = entry;
+        if (!this._candidateSelections[eng]) {
             this._candidateSelections[eng] = {};
-            this._candidateSelections[eng][legacyWord] = { freq: 1, lastSelected: Date.now() };
-            entry = this._candidateSelections[eng];
-        } else if (typeof entry !== 'object' || entry === null) {
-            this._candidateSelections[eng] = {};
-            entry = this._candidateSelections[eng];
         }
+        var entry = this._candidateSelections[eng];
 
         if (!entry[candidate]) {
             entry[candidate] = { freq: 0, lastSelected: 0 };

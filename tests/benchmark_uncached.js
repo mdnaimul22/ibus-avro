@@ -2,14 +2,12 @@
 // =============================================================================
 // IBus Avro Uncached Suggestion Performance Test
 // =============================================================================
-imports.searchPath.unshift('..');
-imports.searchPath.unshift('../src');
 imports.searchPath.unshift('./src');
-imports.searchPath.unshift('.');
-const suggestion = imports.services.suggestion_engine;
+imports.searchPath.unshift('../src');
+const Services = imports.services.index;
 const GLib = imports.gi.GLib;
 
-var builder = new suggestion.SuggestionBuilder();
+var builder = new Services.SuggestionEngine();
 
 var testWords = [
     "ami", "bangla", "gan", "gai", "tumi", "ki", "korcho", "amader", "desh", "shadhin",
