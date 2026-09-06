@@ -1,5 +1,5 @@
 AUTOMAKE_OPTIONS = foreign
-FILES = changeloggen.sh com.omicronlab.avro.gschema.xml configure.ac database-compiler.js Database.db3 ibus-avro.xml.in ibus-setup-ibus-avro.desktop.in main-gjs.js Makefile.am pref.js README.md
+FILES = com.omicronlab.avro.gschema.xml configure.ac ibus-avro.xml.in ibus-setup-ibus-avro.desktop.in main-gjs.js Makefile.am pref.js README.md setup.sh
 
 all: build
 	@:
@@ -61,5 +61,5 @@ uninstall:
 clean:
 	@:
 cleanup:
-	rm -r evars.js ibus-avro.xml ibus-setup-ibus-avro.desktop Makefile autom4te.cache/ aclocal.m4 config.log config.status configure Makefile.in install-sh missing
-.PHONY: all build clean
+	rm -rf ibus-avro.xml ibus-setup-ibus-avro.desktop Makefile autom4te.cache/ aclocal.m4 config.log config.status configure Makefile.in install-sh missing src/config/paths.js
+.PHONY: all build clean cleanup
