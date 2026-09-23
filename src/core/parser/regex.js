@@ -162,7 +162,7 @@ AvroRegex.prototype = {
                                 }
                             }
                         }
-                        if(matched == true) break;
+                        if (matched === true) break;
 
                         // Default
                         output += pattern.replace + "(্[যবম])?(্?)([ঃঁ]?)";
@@ -224,8 +224,8 @@ AvroRegex.prototype = {
     },
     
     
-    _isExact: function(needle, heystack, start, end, not) {
-        return ((start >= 0 && end < heystack.length && (heystack.substring(start, end)  === needle)) ^ not);
+    _isExact: function(needle, haystack, start, end, not) {
+        return ((start >= 0 && end < haystack.length && (haystack.substring(start, end) === needle)) ^ not);
     },
     
     
@@ -1423,10 +1423,4 @@ AvroRegex.prototype = {
             "consonant":"bcdfghjklmnpqrstvwxyz",
             "ignore":"|()[]{}^$*+?.~!@#%&-_='\";<>/\\,:`"
     }
-}
-
-/* --------- */
-/* Test code */
-/* --------- */
-//var __avroRegex = new AvroRegex ();
-//print(__avroRegex.parse('a(!k)'));
+};

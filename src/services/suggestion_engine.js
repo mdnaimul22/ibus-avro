@@ -32,22 +32,23 @@ const Core = imports.core.index;
 const Data = imports.data.index;
 const Helpers = imports.helpers.index;
 
-const dictsearch = { DBSearch: Data.DBSearch };
+const DBSearch = Data.DBSearch;
 const autocorrectdb = Core.AutocorrectDB;
 const Avroparser = Core.AvroPhonetic;
 const utfconv = Helpers.UTF8;
-const EditDistance = { levenshtein: Core.Levenshtein };
+const levenshtein = Core.Levenshtein;
 const suffixDict = Data.SuffixDictDB;
 const Settings = Config.Settings;
+const Logger = Helpers.Logger;
 
-function SuggestionBuilder(){
+function SuggestionBuilder() {
     this._init();
 }
 
 SuggestionBuilder.prototype = {
     
-    _init: function(){
-        this._dbSearch = new dictsearch.DBSearch ();
+    _init: function() {
+        this._dbSearch = new DBSearch();
         this._candidateSelections = {};
         this._phoneticCache = {};
         this._loadCandidateSelectionsFromFile();
@@ -85,7 +86,7 @@ SuggestionBuilder.prototype = {
     },
     
     
-    _correctCase:function (banglish){
+    _correctCase: function(banglish) {
         return Avroparser.fixString(banglish);
     },
     
@@ -145,7 +146,7 @@ SuggestionBuilder.prototype = {
             var item = dictSuggestion[i];
             var freq = freqMap[item] || 0;
             // Subtract a boost so frequently chosen words sort lower (i.e. first)
-            var score = EditDistance.levenshtein(phonetic, item) - (freq > 0 ? (10 + freq) : 0);
+            var score = levenshtein(phonetic, item) - (freq > 0 ? (10 + freq) : 0);
             list.push({ item: item, score: score });
         }
         
@@ -161,8 +162,8 @@ SuggestionBuilder.prototype = {
         return sortedSuggestion;
     },
     
-    _addToArray: function (arr,item) {
-        if (arr.indexOf(item) == -1){
+    _addToArray: function(arr, item) {
+        if (arr.indexOf(item) === -1) {
             arr.push(item);
         }
     },
@@ -382,7 +383,7 @@ SuggestionBuilder.prototype = {
         }
         
         var i = suggestionWords.indexOf(selectedWord);
-        return (i < 0) ? i = 0 : i;
+        return (i < 0) ? 0 : i;
     },
     
     
@@ -397,27 +398,12 @@ SuggestionBuilder.prototype = {
                 var data_stream = gio.DataInputStream.new(file_stream);
                 var json = data_stream.read_until("", null);
                 this._candidateSelections = JSON.parse(json[0]) || {};
-                
-                /*
-                file.read_async(0, null,
-                		function(source, result){
-                		    var file_stream = source.read_finish(result);
-                		    
-                		    if (file_stream){
-                		        var data_stream = gio.DataInputStream.new(file_stream);
-                                var json = data_stream.read_until("", null);
-                                this._candidateSelections = JSON.parse(json[0]);
-                		    } else {
-                		        this._logger(e, 'Error in _loadCandidateSelectionsFromFile');
-                		    }
-                		});
-                */
             } else {
                 this._candidateSelections = {};
             }
-        } catch (e){
+        } catch (e) {
            this._candidateSelections = {};
-           this._logger(e, 'Error in _loadCandidateSelectionsFromFile');
+           Logger.error(e, 'SuggestionEngine: _loadCandidateSelectionsFromFile');
         }
     },
     
@@ -489,7 +475,7 @@ SuggestionBuilder.prototype = {
                 }
             );
         } catch (e) {
-           this._logger(e, '_flushSave Error');
+           Logger.error(e, 'SuggestionEngine: _flushSave');
         }
     },
 
@@ -515,18 +501,12 @@ SuggestionBuilder.prototype = {
     },
 
 
-    _updateCandidateSelection: function(word, candidate){
+    _updateCandidateSelection: function(word, candidate) {
         this._recordSelection(word, candidate, false);
     },
     
     
-    
-    _logger: function (obj, msg){
-    	print ((msg || 'Log') + ': ' + JSON.stringify(obj, null, '\t'));
-    },
-    
-    
-    getPref: function(){
+    getPref: function() {
         return this._pref;
     },
     

@@ -40,6 +40,10 @@ function runpref() {
     Gtk.init(null);
     let builder = new Gtk.Builder();
     let ui_file = paths.get_pkgdatadir() + "/src/ui/avropref.ui";
+    let file = Gio.File.new_for_path(ui_file);
+    if (!file.query_exists(null)) {
+        ui_file = "./src/ui/avropref.ui";
+    }
     builder.add_from_file(ui_file);
 
     prefwindow = builder.get_object("window1");
@@ -54,17 +58,16 @@ function runpref() {
     switch_newline.connect("notify::active", validate);
     switch_dict.connect("notify::active", validate);
 
-
-    let setting = Gio.Settings.new("com.omicronlab.avro")
-    setting.bind("switch-preview", switch_preview, "active", Gio.SettingsBindFlags.DEFAULT)
-    setting.bind("switch-dict", switch_dict, "active", Gio.SettingsBindFlags.DEFAULT)
-    setting.bind("switch-newline", switch_newline, "active", Gio.SettingsBindFlags.DEFAULT)
-    setting.bind("lutable-size", lutable_size, "value", Gio.SettingsBindFlags.DEFAULT)
-    setting.bind("cboxorient", cboxorient, "active", Gio.SettingsBindFlags.DEFAULT)
+    let setting = Gio.Settings.new(Config.Settings.SCHEMA_ID);
+    setting.bind("switch-preview", switch_preview, "active", Gio.SettingsBindFlags.DEFAULT);
+    setting.bind("switch-dict", switch_dict, "active", Gio.SettingsBindFlags.DEFAULT);
+    setting.bind("switch-newline", switch_newline, "active", Gio.SettingsBindFlags.DEFAULT);
+    setting.bind("lutable-size", lutable_size, "value", Gio.SettingsBindFlags.DEFAULT);
+    setting.bind("cboxorient", cboxorient, "active", Gio.SettingsBindFlags.DEFAULT);
 
     validate();
 
-    prefwindow.connect ("destroy", function(){Gtk.main_quit()});
+    prefwindow.connect("destroy", function() { Gtk.main_quit(); });
     prefwindow.show_all();
 
     Gtk.main();

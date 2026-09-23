@@ -27,11 +27,10 @@
 
 const db = imports.data.avrodict;
 const Core = imports.core.index;
-const Helpers = imports.helpers.index;
-const RegexServer = { AvroRegex: Core.AvroRegex };
-const utfconv = Helpers.UTF8;
 
-function DBSearch () {
+const AvroRegex = Core.AvroRegex;
+
+function DBSearch() {
     this._init();
 }
 
@@ -145,30 +144,15 @@ DBSearch.prototype = {
 
         for (var i = 0; i < wArray.length; i++){
             word = wArray[i];
-            if (re.test(word)){
+            if (re.test(word)) {
                 retWords.push(word);
             }
         }
-  	    return retWords;
-  	},
+        return retWords;
+    },
 
+    _init: function() {
+        this._regex = new AvroRegex();
+    }
+};
 
-	_printWords: function (enText) {
-	    var words = this.search(enText);
-	    for (var i = 0; i < words.length; i++){
-            print(words[i]);
-        }
-  	},
-  	
-  	
-	_init: function () {
-        this._regex = new RegexServer.AvroRegex();
-  	}
-}
-
-
-/* --------- */
-/* Test code */
-/* --------- */
-// var __dbSearch = new DBSearch ();
-// __dbSearch._printWords('onirban');

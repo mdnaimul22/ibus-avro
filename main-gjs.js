@@ -34,7 +34,7 @@ imports.searchPath.unshift('./src');
 const Config = imports.config.index;
 const Services = imports.services.index;
 const paths = Config.Paths;
-const suggestion = { SuggestionBuilder: Services.SuggestionEngine };
+const SuggestionEngine = Services.SuggestionEngine;
 const Gio = imports.gi.Gio;
 const prefwindow = imports.pref;
 
@@ -84,10 +84,6 @@ if (bus.is_connected()) {
     }
     
     function engine_process_key_event(engine, keyval, keycode, state) {
-
-        //print keypress infos, helpful for debugging
-        //print(keyval + " " + keycode + " " + state);
-
         //sanitize state, main reason is to weed out xorg masks
         state = state & IBus.ModifierType.MODIFIER_MASK;
 
@@ -197,7 +193,6 @@ if (bus.is_connected()) {
             engine.currentSelection = index;
             preeditCandidate(engine);
             suggestionBuilder.updateCandidateSelection(engine.buffertext, engine.currentSuggestions[engine.currentSelection]);
-            //print("candidate clicked: " + index + " " + button + " " + state);
         }
     }
 
@@ -236,10 +231,10 @@ if (bus.is_connected()) {
     /* =========================================================================== */
     /* =========================================================================== */
     
-    var suggestionBuilder = new suggestion.SuggestionBuilder();
+    var suggestionBuilder = new SuggestionEngine();
     
     function initSetting(engine){
-        engine.setting = Gio.Settings.new("com.omicronlab.avro");
+        engine.setting = Gio.Settings.new(Config.Settings.SCHEMA_ID);
     
         //set up a asynchronous callback for instant change later
         engine.setting.connect('changed', 
