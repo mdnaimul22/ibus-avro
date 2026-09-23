@@ -25,9 +25,11 @@
 */
 
 
-const db = imports.avrodict;
-const RegexServer = imports.avroregexlib;
-const utfconv = imports.utf8;
+const db = imports.data.avrodict;
+const Core = imports.core.index;
+const Helpers = imports.helpers.index;
+const RegexServer = { AvroRegex: Core.AvroRegex };
+const utfconv = Helpers.UTF8;
 
 function DBSearch () {
     this._init();

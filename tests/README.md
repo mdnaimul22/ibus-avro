@@ -1,42 +1,74 @@
-# IBus Avro Test & Benchmark Suite
+# IBus Avro Automated Test & Benchmark Suite
 
-This directory contains performance benchmarks and automated verification test suites for the `ibus-avro` engine.
+This directory contains the automated test suite and performance benchmarks for the `ibus-avro` engine, organized in a modular structure that directly mirrors `src/`.
 
-## Test & Benchmark Scripts
+---
 
-| Script | Runtime | Description |
-| :--- | :--- | :--- |
-| [`benchmark.js`](./benchmark.js) | GJS | Measures end-to-end suggestion generation performance (30,000 suggestions across 30 diverse phonetic words). |
-| [`benchmark_adaptive.js`](./benchmark_adaptive.js) | Node.js | Compares old Levenshtein-only sorting vs new frequency-boosted adaptive sorting (100,000 runs). |
-| [`benchmark_uncached.js`](./benchmark_uncached.js) | GJS | Cold-start / worst-case suggestion performance benchmark without in-memory caching. |
-| [`benchmark_parser.js`](./benchmark_parser.js) | GJS | Benchmarks raw Avro phonetic parser speed (`avrolib.js`) for 300,000 parses. |
-| [`benchmark_regex.js`](./benchmark_regex.js) | GJS | Benchmarks regular expression engine matching (`avroregexlib.js`) for 300,000 parses. |
-| [`test_adaptive.js`](./test_adaptive.js) | Node.js | Comprehensive automated unit and integration tests verifying adaptive learning, selection tracking, pruning, persistence, and legacy migration. |
-| [`verify_suggestion_builder.js`](./verify_suggestion_builder.js) | GJS | Tests 2-second debounced asynchronous file saving and UTF-8 JSON persistence. |
+## Architecture Overview
 
-## Running the Tests
+```text
+tests/
+├── run_tests.sh                 # Unified test runner (executes all test suites)
+│
+├── unit/                        # Unit tests directly testing src/ modules
+│   ├── test_config.js           # src/config (Settings constants, limits, Paths)
+│   ├── test_core_algorithms.js  # src/core/algorithms (Levenshtein distance)
+│   ├── test_core_parser.js      # src/core/parser (Phonetic & Regex parsers)
+│   ├── test_data_search.js      # src/data (Trie search & dictionary lookups)
+│   └── test_services_suggestion.js # src/services (Suggestion scoring & adaptive history)
+│
+├── integration/                 # End-to-end and file persistence tests
+│   └── test_persistence.js     # Sandboxed JSON file persistence & debounced I/O
+│
+├── benchmarks/                  # Performance benchmarks (throughput & latency)
+│   ├── bench_engine.js          # Cached & uncached suggestion engine performance
+│   └── bench_parser.js          # Raw phonetic and regex parser speed
+│
+└── helpers/
+    └── assert.js                # Standard test harness (describe, it, assertEqual)
+```
 
-You can run individual tests from the project root or from inside the `tests/` folder:
+---
+
+## Running Tests
+
+### 1. Run All Tests (Single Command)
+To run the entire test suite with a consolidated pass/fail report:
 
 ```bash
-# 1. Full Suggestion Engine Benchmark
-gjs tests/benchmark.js
+./tests/run_tests.sh
+```
 
-# 2. Cold Uncached Benchmark
-gjs tests/benchmark_uncached.js
+### 2. Run Individual Unit Tests
+Individual test suites can be executed directly via `gjs`:
 
-# 3. Phonetic Parser Benchmark
-gjs tests/benchmark_parser.js
+```bash
+# Config Layer
+gjs tests/unit/test_config.js
 
-# 4. Regex Parser Benchmark
-gjs tests/benchmark_regex.js
+# Core Algorithms (Levenshtein)
+gjs tests/unit/test_core_algorithms.js
 
-# 5. Adaptive Sorting Benchmark
-node tests/benchmark_adaptive.js
+# Core Parsers (Phonetic & Regex)
+gjs tests/unit/test_core_parser.js
 
-# 6. Adaptive Suggestion Automated Integration Test Suite
-node tests/test_adaptive.js
+# Data Layer (Trie Search & Suffixes)
+gjs tests/unit/test_data_search.js
 
-# 7. Asynchronous Saving Verification
-gjs tests/verify_suggestion_builder.js
+# Services Layer (Suggestion Engine)
+gjs tests/unit/test_services_suggestion.js
+
+# Sandboxed Persistence Integration
+gjs tests/integration/test_persistence.js
+```
+
+### 3. Run Performance Benchmarks
+To measure system throughput and latency:
+
+```bash
+# Suggestion Engine Throughput (Cached & Uncached)
+gjs tests/benchmarks/bench_engine.js
+
+# Core Parser Throughput (Phonetic & Regex)
+gjs tests/benchmarks/bench_parser.js
 ```

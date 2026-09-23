@@ -27,12 +27,18 @@
 const gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
 
-const dictsearch = imports.dbsearch;
-const autocorrectdb = imports.autocorrect.db;
-const Avroparser = imports.avrolib.OmicronLab.Avro.Phonetic;
-const utfconv = imports.utf8;
-const EditDistance = imports.levenshtein;
-const suffixDict = imports.suffixdict.db;
+const Config = imports.config.index;
+const Core = imports.core.index;
+const Data = imports.data.index;
+const Helpers = imports.helpers.index;
+
+const dictsearch = { DBSearch: Data.DBSearch };
+const autocorrectdb = Core.AutocorrectDB;
+const Avroparser = Core.AvroPhonetic;
+const utfconv = Helpers.UTF8;
+const EditDistance = { levenshtein: Core.Levenshtein };
+const suffixDict = Data.SuffixDictDB;
+const Settings = Config.Settings;
 
 function SuggestionBuilder(){
     this._init();
@@ -128,13 +134,8 @@ SuggestionBuilder.prototype = {
         // Build a frequency map for words the user has previously chosen for this key
         if (searchKey && this._candidateSelections[searchKey]) {
             var entry = this._candidateSelections[searchKey];
-            // Support both legacy string format and new metadata object format
-            if (typeof entry === 'string') {
-                freqMap[entry] = 1;
-            } else if (typeof entry === 'object' && entry !== null) {
-                for (var bw in entry) {
-                    freqMap[bw] = entry[bw].freq || 1;
-                }
+            for (var bw in entry) {
+                freqMap[bw] = entry[bw].freq;
             }
         }
 
@@ -321,9 +322,6 @@ SuggestionBuilder.prototype = {
     _getPreviousSelectionString: function(key){
         var entry = this._candidateSelections[key];
         if (!entry) return '';
-        if (typeof entry === 'string') return entry;
-        // New format: { 'word': { freq: N, lastSelected: T }, ... }
-        // Return the word with the highest frequency
         var bestWord = '';
         var bestFreq = -1;
         for (var bw in entry) {
@@ -390,7 +388,8 @@ SuggestionBuilder.prototype = {
     
     _loadCandidateSelectionsFromFile: function(){
         try {
-            var file = gio.File.new_for_path(GLib.get_home_dir() + "/.candidate-selections.json");
+            var candidateFile = Settings.CANDIDATE_FILE_NAME;
+            var file = gio.File.new_for_path(GLib.get_home_dir() + candidateFile);
         
             if (file.query_exists (null)) {
                 
@@ -425,16 +424,14 @@ SuggestionBuilder.prototype = {
     
     _pruneCandidateSelections: function() {
         var keys = Object.keys(this._candidateSelections);
-        if (keys.length <= 2000) return;
+        if (keys.length <= Settings.PRUNE_KEY_LIMIT) return;
 
         var keyTimes = [];
         for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
             var entry = this._candidateSelections[key];
             var maxTime = 0;
-            if (typeof entry === 'string') {
-                maxTime = 0;
-            } else if (typeof entry === 'object' && entry !== null) {
+            if (entry) {
                 for (var candidate in entry) {
                     if (entry[candidate].lastSelected > maxTime) {
                         maxTime = entry[candidate].lastSelected;
@@ -448,7 +445,7 @@ SuggestionBuilder.prototype = {
             return b.time - a.time;
         });
 
-        for (var i = 1500; i < keyTimes.length; i++) {
+        for (var i = Settings.PRUNE_KEEP_LIMIT; i < keyTimes.length; i++) {
             delete this._candidateSelections[keyTimes[i].key];
         }
     },
@@ -461,7 +458,7 @@ SuggestionBuilder.prototype = {
             this._saveTimeoutId = 0;
         }
         var that = this;
-        this._saveTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 2000, function() {
+        this._saveTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, Settings.SAVE_DEBOUNCE_MS, function() {
             that._saveTimeoutId = 0;
             that._flushSave();
             return GLib.SOURCE_REMOVE;
@@ -474,9 +471,9 @@ SuggestionBuilder.prototype = {
         this._dirty = false;
         try {
             this._pruneCandidateSelections();
-            var json = JSON.stringify(this._candidateSelections, null, 2);
+            var json = JSON.stringify(this._candidateSelections, null, Settings.JSON_INDENT);
             var bytes = GLib.Bytes.new(json);
-            var file = gio.File.new_for_path(GLib.get_home_dir() + "/.candidate-selections.json");
+            var file = gio.File.new_for_path(GLib.get_home_dir() + Settings.CANDIDATE_FILE_NAME);
             file.replace_contents_async(
                 bytes,
                 null,
@@ -502,18 +499,10 @@ SuggestionBuilder.prototype = {
     // incrementFreq=false: user is navigating suggestions (preview only).
     _recordSelection: function(eng, candidate, incrementFreq){
         if (!eng || !candidate) return;
-        var entry = this._candidateSelections[eng];
-
-        // Migrate legacy string format to metadata object on first write
-        if (typeof entry === 'string') {
-            var legacyWord = entry;
+        if (!this._candidateSelections[eng]) {
             this._candidateSelections[eng] = {};
-            this._candidateSelections[eng][legacyWord] = { freq: 1, lastSelected: Date.now() };
-            entry = this._candidateSelections[eng];
-        } else if (typeof entry !== 'object' || entry === null) {
-            this._candidateSelections[eng] = {};
-            entry = this._candidateSelections[eng];
         }
+        var entry = this._candidateSelections[eng];
 
         if (!entry[candidate]) {
             entry[candidate] = { freq: 0, lastSelected: 0 };

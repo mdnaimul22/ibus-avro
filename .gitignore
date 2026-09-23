@@ -1,6 +1,7 @@
 ibus-avro.xml
+ibus-setup-ibus-avro.desktop
 Makefile
-evars.js
+src/config/paths.js
 autom4te.cache/
 aclocal.m4
 config.log

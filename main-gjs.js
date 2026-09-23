@@ -28,9 +28,13 @@
 
 
 const IBus = imports.gi.IBus;
-imports.searchPath.unshift('.');
-const eevars = imports.evars;
-const suggestion = imports.suggestionbuilder;
+imports.searchPath.unshift('/usr/share/ibus-avro/src');
+imports.searchPath.unshift('./src');
+
+const Config = imports.config.index;
+const Services = imports.services.index;
+const paths = Config.Paths;
+const suggestion = { SuggestionBuilder: Services.SuggestionEngine };
 const Gio = imports.gi.Gio;
 const prefwindow = imports.pref;
 
@@ -369,58 +373,28 @@ if (bus.is_connected()) {
     var factory = IBus.Factory.new(bus.get_connection());
     factory.connect('create-engine', _create_engine_cb);
 
-    // property 'exec' is changed to 'command-line' in recent ibus,the try-catch block is here for supporting both.
-    var component = null;   
-    try {      
-        component = new IBus.Component({
-            name: "org.freedesktop.IBus.Avro",
-            description: "Avro Phonetic",
-            version: "1.1",
-            license: "MPL 1.1",
-            author: "Sarim Khan <sarim2005@gmail.com>",
-            homepage: "https://github.com/sarim/ibus-avro",
-            command_line: eevars.get_libexecdir() + "/main-gjs.js",
-            textdomain: "avro-phonetic"
-        });
-    } catch (error) {
-        component = new IBus.Component({
-            name: "org.freedesktop.IBus.Avro",
-            description: "Avro Phonetic",
-            version: "1.1",
-            license: "MPL 1.1",
-            author: "Sarim Khan <sarim2005@gmail.com>",
-            homepage: "https://github.com/sarim/ibus-avro",
-            exec: eevars.get_libexecdir() + "/main-gjs.js",
-            textdomain: "avro-phonetic"
-        });
-    }
-    
-    //opensuse's ibus supports only Property(Menu) but ubuntu only supports "setup" param for Preferences Button, try-catch in rescue
-    try {
-        var avroenginedesc = new IBus.EngineDesc({
-            name: "avro-phonetic",
-            longname: "Avro Phonetic",
-            description: "Avro Phonetic Engine",
-            language: "bn",
-            license: "MPL 1.1",
-            author: "Sarim Khan <sarim2005@gmail.com>",
-            icon: eevars.get_pkgdatadir() + "/avro-bangla.png",
-            layout: "bn",
-            setup: "/usr/bin/env gjs --include-path=" + eevars.get_pkgdatadir() + " " + eevars.get_pkgdatadir() + "/pref.js --standalone"
-        });
-    } catch (error) {
-        var avroenginedesc = new IBus.EngineDesc({
-            name: "avro-phonetic",
-            longname: "Avro Phonetic",
-            description: "Avro Phonetic Engine",
-            language: "bn",
-            license: "MPL 1.1",
-            author: "Sarim Khan <sarim2005@gmail.com>",
-            icon: eevars.get_pkgdatadir() + "/avro-bangla.png",
-            layout: "bn"
-        });
-    
-    }
+    var component = new IBus.Component({
+        name: "org.freedesktop.IBus.Avro",
+        description: "Avro Phonetic",
+        version: "1.1",
+        license: "MPL 1.1",
+        author: "Sarim Khan <sarim2005@gmail.com>",
+        homepage: "https://github.com/sarim/ibus-avro",
+        command_line: paths.get_libexecdir() + "/main-gjs.js",
+        textdomain: "avro-phonetic"
+    });
+
+    var avroenginedesc = new IBus.EngineDesc({
+        name: "avro-phonetic",
+        longname: "Avro Phonetic",
+        description: "Avro Phonetic Engine",
+        language: "bn",
+        license: "MPL 1.1",
+        author: "Sarim Khan <sarim2005@gmail.com>",
+        icon: paths.get_pkgdatadir() + "/avro-bangla.png",
+        layout: "bn",
+        setup: "/usr/bin/env gjs --include-path=" + paths.get_pkgdatadir() + "/src " + paths.get_pkgdatadir() + "/pref.js --standalone"
+    });
 
     component.add_engine(avroenginedesc);
     
