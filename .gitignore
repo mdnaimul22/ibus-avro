@@ -10,3 +10,4 @@ configure
 Makefile.in
 install-sh
 missing
+.agents/
