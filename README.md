@@ -28,7 +28,7 @@ curl -sSL https://raw.githubusercontent.com/mdnaimul22/ibus-avro/setup.sh | bash
 | **কোর ফনেটিক পার্সার** (`phonetic.js`) | ~৮২ $\mu\text{s}$ | **~৭.১ $\mu\text{s}$** | **১১.৫৪ গুণ দ্রুত** (৯১.৩% কম ল্যাটেন্সি) | ~১৪১,০০০ parses/sec |
 | **সাজেশন ইঞ্জিন (Uncached Cold)** | ~৬,০০০ $\mu\text{s}$ | **~১,৩০০ $\mu\text{s}$** | **৪.৭ গুণ দ্রুত** (৭৮.৩% কম ল্যাটেন্সি) | ~৭৫০+ words/sec |
 | **মেমরি ক্যাশড সাজেশন (In-Memory)** | ~৬,০০০ $\mu\text{s}$ | **~৪৮ $\mu\text{s}$** | **১২৫ গুণ দ্রুত** (**১২,৪০০%** বৃদ্ধি) | **~২৬,০০০+ words/sec** |
-| **ডিস্ক সেভিং ও টাইপিং স্টল (I/O)** | ২০০-৫০০ ms (UI ফ্রিজ) | **০ ms** (অ্যাসিনক্রোনাস) | **৫,০০০+ গুণ দ্রুত** (ল্যাগ সম্পূর্ণ দূর) | নন-ব্লকিং ব্যাকগ্রাউন্ড |
+| **ডিস্ক সেভিং ও টাইপিং স্টল (I/O)** | ২০০-৫০০ ms (UI ফ্রিজ) | **০ ms** (অ্যাসিনক্রোনাস) | **৫,০০০+ গুণ দ্রুত** (ল্যাগ সম্পূর্ণ জিরো) | নন-ব্লকিং ব্যাকগ্রাউন্ড |
 
 ---
 
@@ -54,22 +54,6 @@ curl -sSL https://raw.githubusercontent.com/mdnaimul22/ibus-avro/setup.sh | bash
 1. কীবোর্ড লেআউট পরিবর্তন করতে **`F12`** অথবা **`Super + Space`** প্রেস করুন।
 2. যদি শর্টকাট কাজ না করে, তবে সিস্টেম সেটিংস বা Input Method Selector-এ গিয়ে `IBus` অ্যাক্টিভ করুন এবং IBus Preferences-এ গিয়ে `Bangla -> Avro` কি-বোর্ড লেআউটটি যুক্ত করুন।
 3. IBus রিস্টার্ট করতে চাইলে টার্মিনালে লিখুন: `ibus restart`।
-
----
-
-## 🌐 English Documentation & Benchmarks
-
-### Performance Benchmark Highlights
-
-| Component | Legacy Latency | Optimized Latency | Speedup | Throughput |
-| :--- | :--- | :--- | :--- | :--- |
-| **Core Phonetic Parser** (`phonetic.js`) | ~82 $\mu\text{s}$ | **~7.1 $\mu\text{s}$** | **11.54x faster** (91.3% reduction) | ~141,000 parses/sec |
-| **Suggestion Engine (Cold / Uncached)** | ~6,000 $\mu\text{s}$ | **~1,300 $\mu\text{s}$** | **4.7x faster** (78.3% reduction) | ~750+ words/sec |
-| **Memory-Cached Suggestions** | ~6,000 $\mu\text{s}$ | **~48 $\mu\text{s}$** | **125x faster** (**12,400%** gain) | **~26,000+ words/sec** |
-| **Debounced Async File I/O** | 200–500 ms (UI freeze) | **0 ms** (non-blocking) | **5,000x+ faster** (zero typing lag) | Non-blocking background |
-
-- **Self-Improving Suggestions**: Adaptive frequency tracking ranks frequently picked words to the top over time (`~/.candidate-selections.json`).
-- **Zero Typing Freezes**: Debounced asynchronous file saving removes disk bottlenecks completely from the main typing thread.
 
 ---
 
