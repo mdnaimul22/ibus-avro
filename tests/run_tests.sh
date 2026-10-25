@@ -15,6 +15,11 @@ NC='\033[0m' # No Color
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
 
+if [[ "$1" == "--iq" || "$1" == "--ais" || "$1" == "--benchmark" ]]; then
+    gjs tests/benchmarks/intelligence/test_intelligence_quotient.js
+    exit $?
+fi
+
 echo -e "${BLUE}${BOLD}======================================================${NC}"
 echo -e "${BLUE}${BOLD}        IBus Avro Automated Test Suite Runner         ${NC}"
 echo -e "${BLUE}${BOLD}======================================================${NC}"
