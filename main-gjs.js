@@ -36,6 +36,13 @@ const Services = imports.services.index;
 const paths = Config.Paths;
 const SuggestionEngine = Services.SuggestionEngine;
 const Gio = imports.gi.Gio;
+const GLib = imports.gi.GLib;
+let GLibUnix = null;
+try {
+    GLibUnix = imports.gi.GLibUnix;
+} catch (e) {
+    // optional platform module
+}
 const prefwindow = imports.pref;
 
 //check if running from ibus
@@ -200,6 +207,7 @@ if (bus.is_connected()) {
         if (engine.buffertext.length > 0) {
             commitCandidate(engine);
         }
+        suggestionBuilder.flushSync();
     }
 
     var proplist = new IBus.PropList();
@@ -398,6 +406,29 @@ if (bus.is_connected()) {
     } else {
         bus.register_component(component);
     }
+    function onShutdown() {
+        try {
+            suggestionBuilder.flushSync();
+        } catch (e) {
+            // ignore/log error
+        }
+        IBus.main_quit();
+        return GLib.SOURCE_REMOVE;
+    }
+
+    var signalHelper = (GLibUnix && GLibUnix.signal_add_full) ?
+        GLibUnix.signal_add_full : GLib.unix_signal_add;
+
+    if (signalHelper) {
+        signalHelper(GLib.PRIORITY_HIGH, 15, onShutdown); // SIGTERM
+        signalHelper(GLib.PRIORITY_HIGH, 2, onShutdown);  // SIGINT
+        signalHelper(GLib.PRIORITY_HIGH, 1, onShutdown);  // SIGHUP
+    }
+
+    bus.connect('disconnected', function () {
+        onShutdown();
+    });
+
     IBus.main();
 }
 else

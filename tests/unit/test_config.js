@@ -21,8 +21,8 @@ describe("Config Layer - Settings & Paths", function() {
     it("Settings constants are properly defined as single source of truth", function() {
         var S = Config.Settings;
         assert(S !== undefined, "Settings object should be exported");
-        assertEqual(S.PRUNE_KEY_LIMIT, 2000, "PRUNE_KEY_LIMIT should be 2000");
-        assertEqual(S.PRUNE_KEEP_LIMIT, 1500, "PRUNE_KEEP_LIMIT should be 1500");
+        assertEqual(S.PRUNE_KEY_LIMIT, 10000, "PRUNE_KEY_LIMIT should be 10000");
+        assertEqual(S.PRUNE_KEEP_LIMIT, 8000, "PRUNE_KEEP_LIMIT should be 8000");
         assertEqual(S.SAVE_DEBOUNCE_MS, 2000, "SAVE_DEBOUNCE_MS should be 2000 ms");
         assertEqual(S.CANDIDATE_FILE_NAME, "/.candidate-selections.json", "CANDIDATE_FILE_NAME matches standard");
         assertEqual(S.JSON_INDENT, 2, "JSON_INDENT should be 2 spaces");

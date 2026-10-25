@@ -297,7 +297,8 @@ SuggestionBuilder.prototype = {
                 var suggestion = {};
         
                 //Is there any previous custom selection of the user?
-                suggestion['prevSelection'] = this._getPreviousSelection(splitWord, words);
+                var hasDictMatch = (dictSuggestion && dictSuggestion.length > 0);
+                suggestion['prevSelection'] = this._getPreviousSelection(splitWord, words, hasDictMatch);
         
                 //Add padding to all, except exact autocorrect
                 for (var i = 0; i < words.length; i++){
@@ -320,14 +321,20 @@ SuggestionBuilder.prototype = {
     
     // Returns the last-selected word string for a given key, supporting both
     // legacy string values and new metadata object format.
+    // NOTE: Only returns candidates with freq > 0 (committed by user).
     _getPreviousSelectionString: function(key){
         var entry = this._candidateSelections[key];
         if (!entry) return '';
         var bestWord = '';
-        var bestFreq = -1;
+        var bestFreq = 0;
+        var bestTime = 0;
         for (var bw in entry) {
-            if (entry[bw].freq > bestFreq) {
-                bestFreq = entry[bw].freq;
+            var item = entry[bw];
+            var freq = (item && typeof item === 'object') ? (item.freq || 0) : 0;
+            var time = (item && typeof item === 'object') ? (item.lastSelected || 0) : 0;
+            if (freq > bestFreq || (freq === bestFreq && freq > 0 && time > bestTime)) {
+                bestFreq = freq;
+                bestTime = time;
                 bestWord = bw;
             }
         }
@@ -335,15 +342,16 @@ SuggestionBuilder.prototype = {
     },
 
 
-    _getPreviousSelection: function (splitWord, suggestionWords){
+    _getPreviousSelection: function (splitWord, suggestionWords, hasDictMatch){
         var word = splitWord['middle'];
         var len = word.length;
         var selectedWord = '';
         
         selectedWord = this._getPreviousSelectionString(word);
 
-        if (!selectedWord) {
-            //Full word was not found, try checking without suffix
+        if (!selectedWord && !hasDictMatch) {
+            // Full word has no committed history and no direct dictionary match.
+            // Check without suffix for composite words (e.g. root + suffix).
             if (len >= 2){
                 for (var j = 1; j < len; j++){
                     var testSuffix = word.substr(-j).toLowerCase();
@@ -372,8 +380,7 @@ SuggestionBuilder.prototype = {
                                  }
                              }
                              
-                             //Save this reference
-                            this._recordSelection(word, derivedWord, false);
+                            // Preview candidate derived - NEVER mutate candidate database during preview
                             selectedWord = derivedWord;
                             break;
                         }
@@ -409,30 +416,56 @@ SuggestionBuilder.prototype = {
     
     
     _pruneCandidateSelections: function() {
+        // First pass: clean up zero/negative frequency phantom entries
         var keys = Object.keys(this._candidateSelections);
+        for (var i = 0; i < keys.length; i++) {
+            var k = keys[i];
+            var entry = this._candidateSelections[k];
+            if (!entry) {
+                delete this._candidateSelections[k];
+                continue;
+            }
+            for (var cand in entry) {
+                if (!entry[cand] || (entry[cand].freq || 0) <= 0) {
+                    delete entry[cand];
+                }
+            }
+            if (Object.keys(entry).length === 0) {
+                delete this._candidateSelections[k];
+            }
+        }
+
+        keys = Object.keys(this._candidateSelections);
         if (keys.length <= Settings.PRUNE_KEY_LIMIT) return;
 
-        var keyTimes = [];
+        var keyStats = [];
         for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
             var entry = this._candidateSelections[key];
+            var maxFreq = 0;
             var maxTime = 0;
             if (entry) {
                 for (var candidate in entry) {
-                    if (entry[candidate].lastSelected > maxTime) {
-                        maxTime = entry[candidate].lastSelected;
-                    }
+                    var f = entry[candidate].freq || 0;
+                    var t = entry[candidate].lastSelected || 0;
+                    if (f > maxFreq) maxFreq = f;
+                    if (t > maxTime) maxTime = t;
                 }
             }
-            keyTimes.push({ key: key, time: maxTime });
+            keyStats.push({ key: key, freq: maxFreq, time: maxTime });
         }
 
-        keyTimes.sort(function(a, b) {
+        // Sort keys to KEEP first: higher frequency first, then more recent
+        keyStats.sort(function(a, b) {
+            if (b.freq !== a.freq) {
+                return b.freq - a.freq;
+            }
             return b.time - a.time;
         });
 
-        for (var i = Settings.PRUNE_KEEP_LIMIT; i < keyTimes.length; i++) {
-            delete this._candidateSelections[keyTimes[i].key];
+        // Delete keys beyond PRUNE_KEEP_LIMIT (least frequent / oldest)
+        for (var i = Settings.PRUNE_KEEP_LIMIT; i < keyStats.length; i++) {
+            delete this._candidateSelections[keyStats[i].key];
         }
     },
 
@@ -470,12 +503,30 @@ SuggestionBuilder.prototype = {
                     try {
                         source.replace_contents_finish(result);
                     } catch (e) {
-                        // ignore/log error
+                        Logger.error(e, 'SuggestionEngine: _flushSave callback');
                     }
                 }
             );
         } catch (e) {
-           Logger.error(e, 'SuggestionEngine: _flushSave');
+            Logger.error(e, 'SuggestionEngine: _flushSave');
+        }
+    },
+
+
+    flushSync: function() {
+        if (this._saveTimeoutId) {
+            GLib.source_remove(this._saveTimeoutId);
+            this._saveTimeoutId = 0;
+        }
+        if (!this._dirty) return;
+        this._dirty = false;
+        try {
+            this._pruneCandidateSelections();
+            var json = JSON.stringify(this._candidateSelections, null, Settings.JSON_INDENT);
+            var file = gio.File.new_for_path(GLib.get_home_dir() + Settings.CANDIDATE_FILE_NAME);
+            file.replace_contents(json, null, false, gio.FileCreateFlags.NONE, null);
+        } catch (e) {
+            Logger.error(e, 'SuggestionEngine: flushSync');
         }
     },
 

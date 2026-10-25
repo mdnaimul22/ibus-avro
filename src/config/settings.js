@@ -4,8 +4,8 @@
 
 var Settings = {
     // Adaptive Suggestion History Limits
-    PRUNE_KEY_LIMIT: 2000,
-    PRUNE_KEEP_LIMIT: 1500,
+    PRUNE_KEY_LIMIT: 10000,
+    PRUNE_KEEP_LIMIT: 8000,
 
     // Persistence Timing
     SAVE_DEBOUNCE_MS: 2000,

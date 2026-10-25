@@ -96,6 +96,47 @@ describe("Services Layer - Suggestion Engine & Adaptive Scoring", function() {
         assertEqual(remainingKeys, keepLimit, "Keys count after prune must equal PRUNE_KEEP_LIMIT (" + keepLimit + ")");
     });
 
+    it("Pruning preserves high-frequency words over recent low-frequency words", function() {
+        var sb = new Services.SuggestionEngine();
+        sb._candidateSelections = {};
+        sb._flushSave = function() {};
+
+        var limit = Config.Settings.PRUNE_KEY_LIMIT;
+        var keepLimit = Config.Settings.PRUNE_KEEP_LIMIT;
+
+        // Old but high-frequency word (e.g., typed 40 times weeks ago)
+        sb._candidateSelections["important_key"] = {
+            "ইম্পোর্ট": { freq: 40, lastSelected: 1000 }
+        };
+
+        // Fill with recent low-frequency words (freq = 1, recent timestamps)
+        for (var i = 1; i <= limit + 100; i++) {
+            var k = "typo_" + i;
+            sb._candidateSelections[k] = { "word": { freq: 1, lastSelected: 200000 + i } };
+        }
+
+        sb._pruneCandidateSelections();
+
+        assert(sb._candidateSelections["important_key"] !== undefined, "High frequency word must NOT be pruned");
+        assertEqual(sb._candidateSelections["important_key"]["ইম্পোর্ট"].freq, 40, "Frequency should remain intact");
+    });
+
+    it("Dictionary match is not hijacked by synthetic suffix derivation (e.g. jani)", function() {
+        var sb = new Services.SuggestionEngine();
+        sb._candidateSelections = {};
+        sb._flushSave = function() {};
+
+        // Preload 'jan' -> 'জান' in candidate selections
+        sb.stringCommitted("jan", "জান");
+
+        // Type 'jani'
+        var res = sb.suggest("jani");
+        assert(res.words.length > 0, "Should have suggestions for jani");
+        assertEqual(res.words[0], "জানি", "Index 0 should be 'জানি'");
+        assertEqual(res.prevSelection, 0, "prevSelection must be 0 ('জানি'), not hijacked by 'জানই'");
+        assertEqual(res.words[res.prevSelection], "জানি", "Selected word must be 'জানি'");
+    });
+
 });
 
 if (!Assert.summarize()) {
