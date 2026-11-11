@@ -26,5 +26,20 @@
       <summary>cboxorient</summary>
       <description>Orientation of Lookup Table</description>
     </key>
+    <key type="b" name="voice-enabled">
+      <default>false</default>
+      <summary>voice-enabled</summary>
+      <description>Whether voice typing mode is enabled</description>
+    </key>
+    <key type="s" name="voice-server-url">
+      <default>'https://momen-gpu.tail374b2b.ts.net:8030'</default>
+      <summary>voice-server-url</summary>
+      <description>Voice STT Whisper server URL</description>
+    </key>
+    <key type="s" name="voice-api-key">
+      <default>'8801758838322'</default>
+      <summary>voice-api-key</summary>
+      <description>Voice STT server Bearer API key</description>
+    </key>
   </schema>
 </schemalist>

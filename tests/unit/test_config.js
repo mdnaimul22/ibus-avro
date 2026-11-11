@@ -27,6 +27,9 @@ describe("Config Layer - Settings & Paths", function() {
         assertEqual(S.CANDIDATE_FILE_NAME, "/.candidate-selections.json", "CANDIDATE_FILE_NAME matches standard");
         assertEqual(S.JSON_INDENT, 2, "JSON_INDENT should be 2 spaces");
         assertEqual(S.SCHEMA_ID, "com.omicronlab.avro", "SCHEMA_ID matches GSettings schema");
+        assertEqual(S.KEY_VOICE_ENABLED, "voice-enabled", "KEY_VOICE_ENABLED matches schema");
+        assertEqual(S.KEY_VOICE_SERVER_URL, "voice-server-url", "KEY_VOICE_SERVER_URL matches schema");
+        assertEqual(S.KEY_VOICE_API_KEY, "voice-api-key", "KEY_VOICE_API_KEY matches schema");
     });
 
     it("Paths provides valid pkgdatadir and libexecdir", function() {

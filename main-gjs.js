@@ -91,6 +91,59 @@ if (bus.is_connected()) {
     }
     
     function engine_process_key_event(engine, keyval, keycode, state) {
+        if (engine.setting_voice_enabled) {
+            var isRelease = (state & IBus.ModifierType.RELEASE_MASK) !== 0;
+            if (keyval === IBus.Control_L) {
+                if (!isRelease) {
+                    engine.ctrl_l_pressed = true;
+                    engine.ctrl_l_pressed_time = GLib.get_monotonic_time();
+                    engine.ctrl_l_combo = false;
+                    return false;
+                } else {
+                    var wasStandalone = engine.ctrl_l_pressed && !engine.ctrl_l_combo;
+                    var elapsed = GLib.get_monotonic_time() - (engine.ctrl_l_pressed_time || 0);
+                    engine.ctrl_l_pressed = false;
+                    if (wasStandalone && elapsed < 600000) {
+                        if (!voiceService.recording && !voiceService.transcribing) {
+                            if (voiceService.startRecording()) {
+                                var recText = IBus.Text.new_from_string("[🎙️ শুনছি...]");
+                                engine.update_preedit_text(recText, 0, true);
+                                engine.show_preedit_text();
+                            }
+                            return true;
+                        } else if (voiceService.recording) {
+                            var waitText = IBus.Text.new_from_string("[⏳ লিখছি...]");
+                            engine.update_preedit_text(waitText, 0, true);
+                            engine.show_preedit_text();
+                            voiceService.stopAndTranscribe(
+                                engine.setting_voice_server_url,
+                                engine.setting_voice_api_key,
+                                function(transcribedText) {
+                                    engine.hide_preedit_text();
+                                    engine.commit_text(IBus.Text.new_from_string(transcribedText));
+                                },
+                                function(err) {
+                                    engine.hide_preedit_text();
+                                }
+                            );
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            } else if (engine.ctrl_l_pressed) {
+                engine.ctrl_l_combo = true;
+            }
+
+            if (voiceService.recording || voiceService.transcribing) {
+                if (keyval === IBus.Escape) {
+                    voiceService.cancel();
+                    engine.hide_preedit_text();
+                    return true;
+                }
+            }
+        }
+
         //sanitize state, main reason is to weed out xorg masks
         state = state & IBus.ModifierType.MODIFIER_MASK;
 
@@ -204,6 +257,10 @@ if (bus.is_connected()) {
     }
 
     function engine_focus_out(engine) {
+        if (voiceService && voiceService.recording) {
+            voiceService.cancel();
+            engine.hide_preedit_text();
+        }
         if (engine.buffertext.length > 0) {
             commitCandidate(engine);
         }
@@ -240,6 +297,7 @@ if (bus.is_connected()) {
     /* =========================================================================== */
     
     var suggestionBuilder = new SuggestionEngine();
+    var voiceService = new Services.VoiceService();
     
     function initSetting(engine){
         engine.setting = Gio.Settings.new(Config.Settings.SCHEMA_ID);
@@ -271,6 +329,10 @@ if (bus.is_connected()) {
         var dictPref =  suggestionBuilder.getPref();
         dictPref.dictEnable = engine.setting_switch_dict;
         suggestionBuilder.setPref(dictPref);
+
+        engine.setting_voice_enabled = engine.setting.get_boolean(Config.Settings.KEY_VOICE_ENABLED);
+        engine.setting_voice_server_url = engine.setting.get_string(Config.Settings.KEY_VOICE_SERVER_URL);
+        engine.setting_voice_api_key = engine.setting.get_string(Config.Settings.KEY_VOICE_API_KEY);
     }
     
     
@@ -408,6 +470,7 @@ if (bus.is_connected()) {
     }
     function onShutdown() {
         try {
+            if (voiceService) voiceService.cancel();
             suggestionBuilder.flushSync();
         } catch (e) {
             // ignore/log error

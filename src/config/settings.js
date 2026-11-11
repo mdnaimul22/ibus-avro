@@ -1,19 +1,13 @@
-// =============================================================================
-// IBus Avro Settings & Configuration Constants (Single Source of Truth)
-// =============================================================================
-
 var Settings = {
-    // Adaptive Suggestion History Limits
     PRUNE_KEY_LIMIT: 10000,
     PRUNE_KEEP_LIMIT: 8000,
-
-    // Persistence Timing
     SAVE_DEBOUNCE_MS: 2000,
-
-    // File Storage
     CANDIDATE_FILE_NAME: "/.candidate-selections.json",
     JSON_INDENT: 2,
-
-    // GSettings Schema
-    SCHEMA_ID: "com.omicronlab.avro"
+    SCHEMA_ID: "com.omicronlab.avro",
+    KEY_VOICE_ENABLED: "voice-enabled",
+    KEY_VOICE_SERVER_URL: "voice-server-url",
+    KEY_VOICE_API_KEY: "voice-api-key",
+    DEFAULT_VOICE_SERVER_URL: "https://momen-gpu.tail374b2b.ts.net:8030",
+    DEFAULT_VOICE_API_KEY: "8801758838322"
 };

@@ -34,6 +34,7 @@ const Config = imports.config.index;
 const paths = Config.Paths;
 
 var prefwindow, switch_preview, switch_newline, switch_dict, lutable_size, cboxorient, scale1;
+var switch_voice, entry_voice_url, entry_voice_key;
 
 function runpref() {
 
@@ -53,10 +54,14 @@ function runpref() {
     lutable_size = builder.get_object("lutable_size"); 
     scale1 = builder.get_object("scale1"); 
     cboxorient = builder.get_object("cboxorient");
+    switch_voice = builder.get_object("switch_voice");
+    entry_voice_url = builder.get_object("entry_voice_url");
+    entry_voice_key = builder.get_object("entry_voice_key");
     
     switch_preview.connect("notify::active", validate);
     switch_newline.connect("notify::active", validate);
     switch_dict.connect("notify::active", validate);
+    switch_voice.connect("notify::active", validateVoice);
 
     let setting = Gio.Settings.new(Config.Settings.SCHEMA_ID);
     setting.bind("switch-preview", switch_preview, "active", Gio.SettingsBindFlags.DEFAULT);
@@ -64,13 +69,23 @@ function runpref() {
     setting.bind("switch-newline", switch_newline, "active", Gio.SettingsBindFlags.DEFAULT);
     setting.bind("lutable-size", lutable_size, "value", Gio.SettingsBindFlags.DEFAULT);
     setting.bind("cboxorient", cboxorient, "active", Gio.SettingsBindFlags.DEFAULT);
+    setting.bind(Config.Settings.KEY_VOICE_ENABLED, switch_voice, "active", Gio.SettingsBindFlags.DEFAULT);
+    setting.bind(Config.Settings.KEY_VOICE_SERVER_URL, entry_voice_url, "text", Gio.SettingsBindFlags.DEFAULT);
+    setting.bind(Config.Settings.KEY_VOICE_API_KEY, entry_voice_key, "text", Gio.SettingsBindFlags.DEFAULT);
 
     validate();
+    validateVoice();
 
     prefwindow.connect("destroy", function() { Gtk.main_quit(); });
     prefwindow.show_all();
 
     Gtk.main();
+}
+
+function validateVoice() {
+    let active = switch_voice.get_active();
+    entry_voice_url.sensitive = active;
+    entry_voice_key.sensitive = active;
 }
 
 function validate(){

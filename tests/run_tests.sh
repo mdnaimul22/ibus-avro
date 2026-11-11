@@ -47,6 +47,7 @@ run_suite "tests/unit/test_core_algorithms.js" "Core Algorithms (Levenshtein Dis
 run_suite "tests/unit/test_core_parser.js" "Core Parsers (Phonetic & Regex)"
 run_suite "tests/unit/test_data_search.js" "Data Layer (Trie Search & Dict)"
 run_suite "tests/unit/test_services_suggestion.js" "Services Layer (Suggestion Engine & Ranking)"
+run_suite "tests/unit/test_services_voice.js" "Services Layer (Voice Service STT Client)"
 
 # 2. Integration Tests
 run_suite "tests/integration/test_persistence.js" "Integration (Sandboxed Debounce & Persistence)"
